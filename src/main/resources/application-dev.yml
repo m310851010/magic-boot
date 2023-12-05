@@ -1,0 +1,13 @@
+
+server:
+  port: 8089
+  servlet:
+    context-path: /ma-boot
+
+spring:
+  datasource:
+    username: root
+    password: admins
+
+upload:
+  dir: /Users/mdc/mb/
