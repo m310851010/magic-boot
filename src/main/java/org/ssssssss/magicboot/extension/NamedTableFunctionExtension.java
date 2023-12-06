@@ -21,7 +21,7 @@ public class NamedTableFunctionExtension implements ExtensionMethod {
     public static Object saveOrUpdate(NamedTable namedTable, RuntimeContext runtimeContext, @Comment("各项列和值") Map<String, Object> data){
         namedTable.setAttribute(MagicBootConstants.COMMON_FIELD, true);
         namedTable.save(runtimeContext, data,true);
-        return namedTable.getAttribute(MagicBootConstants.ID);
+        return namedTable.getAttribute(namedTable.getPrimary());
     }
 
     @Comment("保存到表中，当主键有值时则修改，否则插入")

@@ -554,59 +554,17 @@ import 'cn.dev33.satoken.stp.StpUtil';
 
 var userId = StpUtil.getLoginId()
 
-// 查出所有隐藏或者打开方式为“页签”和“iframe”的菜单（排除http地址和静态页面）
-var notLayoutMenus = db.select("""
-    select * from (
-        select
-            open_mode,
-            component_name,
-            name,
-            url as path,
-            -- 查询下级是否还有菜单（不包含按钮权限）
-            (
-                select count(1) from sys_menu where is_del = 0 and pid = sm.id and 
-                ((component_name is not null and component_name != '') or (url is not null and url != ''))
-            ) sub_count,
-            sm.keep_alive
-        from sys_menu sm
-        where is_del = 0 and ((component_name is not null and component_name != '') or (
-            url is not null and url != ''
-            -- 排除不需要加载路由的菜单
-            and url not like 'http%'
-            and url not like '%.htm'
-            and url not like '%.html'
-        ))
-        and 
-        (
-            -- 查出来隐藏的需要加载的路由
-            is_show = 0
-            or
-            -- 新标签页和iframe
-            open_mode in ('1', '2')  
-        )
-        ?{userId != '1',
-            and sm.id in (
-                select menu_id from sys_role_menu where role_id in (
-                    select role_id from sys_user_role where user_id = #{userId}
-                )
-            )
-        } 
-    ) sm where sub_count = 0
-""")
-
-// 查出所有显示的菜单
 var menus = db.select("""
     select
         sm.id,
-        sm.name title,
+        sm.name,
         sm.pid,
         sm.is_show,
         sm.url,
         sm.sort,
         sm.icon,
         sm.keep_alive,
-        sm.component_name,
-        sm.open_mode
+        sm.component_name
     from sys_menu sm where 1=1
     ?{userId != '1',
         and sm.id in (
@@ -621,11 +579,9 @@ for(menu in menus){
     menu.component = (menu.url || "Layout");
     menu.path = (menu.component == 'Layout' ? "/" : menu.component);
     menu.meta = {}
-    menu.meta.title = menu.title
+    menu.meta.title = menu.name
     menu.meta.icon = menu.icon
     menu.meta.keepAlive = (menu.keepAlive == '1' ? true : false)
-    menu.meta.openMode = menu.openMode
-    menu.meta.path = menu.path
 }
 var nodes = menus.toMap(it => it.id)
 nodes.each((key, node) => {
@@ -639,7 +595,7 @@ nodes.each((key, node) => {
         nodes[node.pid].children.push(node)
     }
 })
-var layoutMenus = []
+var treeNodes = []
 nodes.each((key, node) => {
     if(node.pid == '0'){
         if(node.component != 'Layout'){
@@ -650,11 +606,8 @@ nodes.each((key, node) => {
                 children: [node]
             }
         }
-        layoutMenus.push(node)
+        treeNodes.push(node)
     }
 })
 
-return {
-    notLayoutMenus,
-    layoutMenus
-}
+return treeNodes

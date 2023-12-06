@@ -11,11 +11,6 @@ public class MagicBootConstants {
     public static final String COMMON_FIELD = "setCommonField";
 
     /**
-     * id
-     */
-    public static final String ID = "id";
-
-    /**
      * 创建人
      */
     public static final String CREATE_BY = "createBy";

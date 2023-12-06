@@ -109,6 +109,6 @@
 import 'cn.dev33.satoken.stp.StpUtil';
 import "@post:/system/security/permissions" as authoritiesList; 
 
-var user = db.table("sys_user").where().eq("id",StpUtil.getLoginId()).selectOne()
+var user = db.table("sys_user").columns('id', 'username', 'name', 'status', 'phone', 'head_portrait', 'office_id').where().eq("id",StpUtil.getLoginId()).selectOne()
 user.authorities = authoritiesList()
 return user
