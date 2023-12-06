@@ -1,8 +1,6 @@
 
 server:
   port: 8089
-  servlet:
-    context-path: /ma-boot
 
 spring:
   datasource:
