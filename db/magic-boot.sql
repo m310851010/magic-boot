@@ -165,7 +165,7 @@ INSERT INTO `sys_gen_info` VALUES (5, '', 't_data_test', '测试生成', '[{\"co
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_login_log`;
 CREATE TABLE `sys_login_log`  (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
   `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '登录账号',
   `fail_password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '失败密码',
   `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '登录类型（成功、失败）',
@@ -332,7 +332,7 @@ INSERT INTO `sys_office` VALUES ('a8b62a271c2a4492bd5c0653cac8f33d', '扎兰屯�
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_oper_log`;
 CREATE TABLE `sys_oper_log`  (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
   `api_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '接口名',
   `api_path` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '路径',
   `api_method` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '方法',

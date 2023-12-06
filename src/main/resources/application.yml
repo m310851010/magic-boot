@@ -62,6 +62,11 @@ spring:
 upload:
   dir: D:/mb/
 
+# id生成器
+snowflake:
+  workerId: 1
+  datacenterId: 1
+
 magic-api:
   web: /magic/web
   show-sql: true #配置打印SQL

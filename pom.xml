@@ -24,6 +24,7 @@
 		<poi.version>4.1.2</poi.version>
 		<mysql.connector.version>8.0.32</mysql.connector.version>
 		<aliyun-core.version>4.6.0</aliyun-core.version>
+		<postgresql.version>42.6.0</postgresql.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -78,6 +79,11 @@
 			<groupId>com.aliyun</groupId>
 			<artifactId>aliyun-java-sdk-core</artifactId>
 			<version>${aliyun-core.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
 		</dependency>
 	</dependencies>
 

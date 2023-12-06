@@ -12,6 +12,8 @@ public class Global {
      * 文件上的根目录
      */
     public static String dir;
+    public long workerId;
+    public long datacenterId;
 
     public final static String USER_FILES_BASE_URL = "/userfiles/";
 
@@ -21,13 +23,23 @@ public class Global {
 
     @Value("${upload.dir:D:/mb/}")
     public void setDir(String dir) {
-        this.dir = dir;
+        Global.dir = dir;
+    }
+
+    @Value("${snowflake.workerId:1}")
+    public void setWorkerId(long workerId) {
+        this.workerId = workerId;
+    }
+
+    @Value("${snowflake.datacenterId:1}")
+    public void setDatacenterId(long datacenterId) {
+        this.datacenterId = datacenterId;
     }
 
     /**
      * 获取上传文件的根目录
      *
-     * @return
+     * @return 文件路径
      */
     public static String getUserFilesBaseDir() {
         String dir = getDir();

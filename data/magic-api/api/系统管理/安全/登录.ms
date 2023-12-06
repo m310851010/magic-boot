@@ -199,9 +199,18 @@ if(configure('verification-code.enable') == 'true'){
     }
 }
 
+if(!body.username){
+    exit 0, '请输入用户名'
+}
+
+if(!body.password){
+    exit 0, '请输入密码'
+}
+
 var user = db.table("sys_user").where().eq("username",body.username).eq('is_del', 0).selectOne()
 
 var loginLog = {
+    id: nextId(),
     username: body.username,
     type: '成功',
     ip: request.getClientIP(),
@@ -210,7 +219,6 @@ var loginLog = {
     address: AddressUtil.getAddress(request.getClientIP())
 }
 
-log.info(SmUtil.sm3WithSalt(user.salt.getBytes()).digestHex(body.password))
 if(!user || SmUtil.sm3WithSalt(user.salt.getBytes()).digestHex(body.password) != user.password){
     loginLog.failPassword = body.password
     loginLog.type = '失败'
