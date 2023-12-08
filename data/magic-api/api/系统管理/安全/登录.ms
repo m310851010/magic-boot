@@ -210,7 +210,6 @@ if(!body.password){
 var user = db.table("sys_user").where().eq("username",body.username).eq('is_del', 0).selectOne()
 
 var loginLog = {
-    id: nextId(),
     username: body.username,
     type: '成功',
     ip: request.getClientIP(),
@@ -233,6 +232,6 @@ if(user.isLogin == '1'){
 StpUtil.login(user.id)
 var token = StpUtil.getTokenValueByLoginId(user.id)
 loginLog.token = token
-db.table("sys_login_log").primary("id").save(loginLog);
+db.table("sys_login_log").primary("id", nextId()).save(loginLog);
 CodeCacheMap.remove(body.uuid)
 return StpUtil.getTokenValueByLoginId(user.id)
