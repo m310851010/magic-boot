@@ -4,15 +4,14 @@ import cn.dev33.satoken.exception.DisableServiceException;
 import org.springframework.stereotype.Component;
 import org.ssssssss.magicapi.core.context.RequestEntity;
 import org.ssssssss.magicapi.core.interceptor.ResultProvider;
-import org.ssssssss.magicapi.core.model.JsonBean;
+import org.ssssssss.magicboot.model.StatusCode;
 
 @Component
 public class ExceptionResultProvider implements ResultProvider {
 
 	@Override
 	public Object buildResult(RequestEntity requestEntity, int code, String message, Object data) {
-		long timestamp = System.currentTimeMillis();
-        return new JsonBean<>(code, message, data, (int) (timestamp - requestEntity.getRequestTime()));
+		return StatusCode.newJsonBean(code, message, data);
 	}
 
 	@Override

@@ -135,10 +135,10 @@ return db.page("""
     left join sys_office so on su.office_id = so.id
     left join sys_user_role sur on su.id = sur.user_id
     where su.is_del = 0
-    ?{roleId, and sur.role_id in(#{roleId.split(',')})}
-    ?{officeId, and su.office_id in(#{officeId.split(',')})}
-    ?{username, and su.username like concat('%',#{username},'%')}
-    ?{name, and su.name like concat('%',#{name},'%')}
-    ?{isLogin, and su.is_login = #{isLogin}}
+    ?{body.roleId, and sur.role_id in(#{body.roleId})}
+    ?{body.officeId, and su.office_id in(#{body.officeId.split(',')})}
+    ?{body.username, and su.username like concat('%',#{body.username},'%')}
+    ?{body.name, and su.name like concat('%',#{body.name},'%')}
+    ?{body.isLogin, and su.is_login = #{body.isLogin}}
     order by ${orderBy || 'su.create_date desc'}
 """)
