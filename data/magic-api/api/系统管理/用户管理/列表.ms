@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "列表",
   "createTime" : null,
-  "updateTime" : 1681528279822,
+  "updateTime" : 1702311177155,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -118,9 +118,8 @@
   }
 }
 ================================
-return db.page("""
+var page = db.page("""
     select
-        distinct
         su.id,
         su.username,
         su.name,
@@ -132,26 +131,34 @@ return db.page("""
         so.name office_name
     from sys_user su
     left join sys_office so on su.office_id = so.id
-    ?{body?.roleId, left join sys_user_role sur on su.id = sur.user_id}
+    ?{body?.roles, left join sys_user_role sur on su.id = sur.user_id}
     where su.is_del = 0
-    ?{body?.officeId, and su.office_id in(#{body.officeId.split(',')})}
-    ?{body?.roleId, and sur.role_id in(#{body.roleId})}
+    ?{body?.officeId, and su.office_id in(#{body.officeId})}
+    ?{body?.roles, and sur.role_id in(#{body.roles})}
     ?{body?.username, and su.username like concat('%',#{body.username},'%')}
     ?{body?.name, and su.name like concat('%',#{body.name},'%')}
     ?{body?.isLogin, and su.is_login = #{body.isLogin}}
     order by ${body?.orderBy || 'su.create_date desc'}
 """)
 
-var ids = page.list.map(v => v.id)
+if (!page.list){
+    return page;
+}
+
+var userIds = page.list.map(v => v.id)
 
 var roles = db.select("""
-select sr.name, sur.user_id from sys_role sr left join sys_user_role sur on sr.id = sur.role_id 
-    where sr.is_del = 0 and sur.user_id in (#{ids})
-    ?{body?.roleId, and sur.role_id in(#{body.roleId})}
+select sr.name, sr.id, sur.user_id from sys_role sr left join sys_user_role sur on sr.id = sur.role_id 
+    where sr.is_del = 0 and sur.user_id in (#{userIds})
+    ?{body?.roles, and sur.role_id in(#{body.roles})}
 """)
-.group(it => it.userId, list => list.map(v => v.name))
+
+var roleNameMap = roles.group(it => it.userId, list => list.map(v => v.name))
+var roleIdMap = roles.group(it => it.userId, list => list.map(v => v.id))
 
 for (item in page.list) {
-    item.roles = roles[item.id]
+    item.roleNames = roleNameMap[item.id]
+    item.roles = roleIdMap[item.id]
 }
+
 return page

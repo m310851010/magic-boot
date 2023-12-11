@@ -4,8 +4,8 @@
   "script" : null,
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "个人信息修改",
-  "createTime" : 1646490239466,
-  "updateTime" : 1643713357950,
+  "createTime" : null,
+  "updateTime" : 1702312129263,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -22,21 +22,24 @@
   "responseBodyDefinition" : null
 }
 ================================
-import cn.dev33.satoken.secure.SaSecureUtil;
+import cn.hutool.crypto.SmUtil
 
-var oldPassword = db.selectValue("""
-    select password from sys_user where id = #{id}
+assert password : 0, '原密码不能为空'
+assert newPassword : 0, '新密码不能为空'
+
+var user = db.selectValue("""
+    select password, salt from sys_user where id = #{id}
 """)
-if(oldPassword != SaSecureUtil.sha256(password)){
+
+if(user.password != SmUtil.sm3WithSalt(user.salt.getBytes()).digestHex(password)){
     exit 0, '原密码不正确！'
 }
 
 var data = {
     id,
     phone,
-    headPortrait
+    headPortrait,
+    password: SmUtil.sm3WithSalt(user.salt.getBytes()).digestHex(newPassword)
 }
-if(newPassword){
-    data.password = newPassword ? SaSecureUtil.sha256(newPassword) : ''
-}
+
 return db.table('sys_user').primary('id').update(data, true)
