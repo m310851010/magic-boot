@@ -23,5 +23,5 @@
 }
 ================================
 return db.select("""
-    select name label, id value from sys_role where is_del = 0
+    select name as label, id as value from sys_role where is_del = 0
 """)

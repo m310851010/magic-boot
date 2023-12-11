@@ -129,16 +129,29 @@ return db.page("""
         su.create_date,
         su.office_id,
         su.head_portrait,
-        so.name office_name,
-        (select group_concat(sr.name) from sys_role sr left join sys_user_role sur on sr.id = sur.role_id where sr.is_del = 0 and sur.user_id = su.id) roles
+        so.name office_name
     from sys_user su
     left join sys_office so on su.office_id = so.id
-    left join sys_user_role sur on su.id = sur.user_id
+    ?{body?.roleId, left join sys_user_role sur on su.id = sur.user_id}
     where su.is_del = 0
-    ?{body?.roleId, and sur.role_id in(#{body.roleId})}
     ?{body?.officeId, and su.office_id in(#{body.officeId.split(',')})}
+    ?{body?.roleId, and sur.role_id in(#{body.roleId})}
     ?{body?.username, and su.username like concat('%',#{body.username},'%')}
     ?{body?.name, and su.name like concat('%',#{body.name},'%')}
     ?{body?.isLogin, and su.is_login = #{body.isLogin}}
-    order by ${orderBy || 'su.create_date desc'}
+    order by ${body?.orderBy || 'su.create_date desc'}
 """)
+
+var ids = page.list.map(v => v.id)
+
+var roles = db.select("""
+select sr.name, sur.user_id from sys_role sr left join sys_user_role sur on sr.id = sur.role_id 
+    where sr.is_del = 0 and sur.user_id in (#{ids})
+    ?{body?.roleId, and sur.role_id in(#{body.roleId})}
+""")
+.group(it => it.userId, list => list.map(v => v.name))
+
+for (item in page.list) {
+    item.roles = roles[item.id]
+}
+return page
