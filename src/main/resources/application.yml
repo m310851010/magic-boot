@@ -69,6 +69,9 @@ snowflake:
   workerId: 1
   datacenterId: 1
 
+# 默认密码
+default-password: "000000"
+
 magic-api:
   web: /magic/web
   show-sql: true #配置打印SQL

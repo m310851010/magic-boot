@@ -14,6 +14,7 @@ public class Global {
     public static String dir;
     public long workerId;
     public long datacenterId;
+    public String defaultPassword;
 
     public final static String USER_FILES_BASE_URL = "/userfiles/";
 
@@ -34,6 +35,11 @@ public class Global {
     @Value("${snowflake.datacenterId:1}")
     public void setDatacenterId(long datacenterId) {
         this.datacenterId = datacenterId;
+    }
+
+    @Value("${default-password:000000}")
+    public void setDatacenterId(String defaultPassword) {
+        this.defaultPassword = defaultPassword;
     }
 
     /**

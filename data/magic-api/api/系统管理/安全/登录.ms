@@ -5,7 +5,7 @@
   "groupId" : "1952f25c81084e24b55b11385767dc38",
   "name" : "登录",
   "createTime" : null,
-  "updateTime" : 1701801150769,
+  "updateTime" : 1702399070285,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -67,7 +67,7 @@
   "responseBody" : "{\n    \"code\": 200,\n    \"message\": \"success\",\n    \"data\": \"63aef477-f270-48ef-acb9-c52ee3c5440d\",\n    \"timestamp\": 1701800910095,\n    \"executeTime\": 54\n}",
   "description" : null,
   "requestBodyDefinition" : {
-    "name" : "",
+    "name" : "root",
     "value" : "",
     "description" : "",
     "required" : false,
@@ -220,7 +220,7 @@ var loginLog = {
 if(!user || SmUtil.sm3WithSalt(user.salt.getBytes()).digestHex(body.password) != user.password){
     loginLog.failPassword = body.password
     loginLog.type = '失败'
-    db.table("sys_login_log").primary("id").save(loginLog);
+    db.table("sys_login_log").primary("id", nextId()).save(loginLog);
     exit 0,'用户名或密码错误'
 }
 

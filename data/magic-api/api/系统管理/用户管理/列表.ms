@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "列表",
   "createTime" : null,
-  "updateTime" : 1702311177155,
+  "updateTime" : 1702396038864,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -133,7 +133,7 @@ var page = db.page("""
     left join sys_office so on su.office_id = so.id
     ?{body?.roles, left join sys_user_role sur on su.id = sur.user_id}
     where su.is_del = 0
-    ?{body?.officeId, and su.office_id in(#{body.officeId})}
+    ?{body?.officeCode, and so.code like concat(#{body.officeCode},'%')}
     ?{body?.roles, and sur.role_id in(#{body.roles})}
     ?{body?.username, and su.username like concat('%',#{body.username},'%')}
     ?{body?.name, and su.name like concat('%',#{body.name},'%')}
