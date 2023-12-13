@@ -5,13 +5,25 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "修改登录状态",
   "createTime" : null,
-  "updateTime" : 1651932570354,
+  "updateTime" : 1702431590988,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
-  "path" : "/change/login/status",
+  "path" : "/change/status",
   "method" : "GET",
-  "parameters" : [ ],
+  "parameters" : [ {
+    "name" : "isLogin",
+    "value" : null,
+    "description" : null,
+    "required" : true,
+    "dataType" : "Integer",
+    "type" : null,
+    "defaultValue" : null,
+    "validateType" : null,
+    "error" : "状态不能为空",
+    "expression" : null,
+    "children" : null
+  } ],
   "options" : [ {
     "name" : "permission",
     "value" : "user:change:login:status",
@@ -34,4 +46,5 @@
   "responseBodyDefinition" : null
 }
 ================================
-return db.table("sys_user").column("isLogin", isLogin).where().eq("id",id).update()
+import cn.dev33.satoken.stp.StpUtil
+return db.table("sys_user").column("isLogin", isLogin).where().eq("id",id).ne("id", StpUtil.getLoginId()).update()
