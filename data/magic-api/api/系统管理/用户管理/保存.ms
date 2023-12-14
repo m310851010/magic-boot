@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "保存",
   "createTime" : null,
-  "updateTime" : 1646493559668,
+  "updateTime" : 1702551910456,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -25,7 +25,7 @@
     "expression" : null,
     "children" : null
   } ],
-  "requestBody" : "{\n\n}",
+  "requestBody" : "{\n}",
   "headers" : [ ],
   "paths" : [ ],
   "responseBody" : null,
@@ -48,29 +48,46 @@
 ================================
 import cn.dev33.satoken.secure.SaSecureUtil;
 import org.ssssssss.magicapi.modules.db.cache.SqlCache
+import cn.hutool.crypto.SmUtil
+import cn.hutool.core.util.RandomUtil;
+import env;
 
-var usernameCount = db.selectInt("select count(1) from sys_user where is_del = 0 and username = #{username} ?{id, and id != #{id}}")
-if(usernameCount > 0){
-    exit 0,'登录名称已存在'
+
+assert body.username : 0, '账号不能为空'
+assert (/^\w{3,64}$/.test(body.username)) :  0, '账号必须是长度在3~64位之间的数字、字母的组合'
+
+var usernameCount = db.selectInt("select count(1) from sys_user where is_del = 0 and username = #{username}")
+assert usernameCount == 0 : 0, '该账号已存在，请重新'
+
+if (!body.password){
+    body.password = env.get('default-password');
 }
 
-password = password ? SaSecureUtil.sha256(password) : ''
+var salt = RandomUtil.randomStringUpper(20);
+var password = SmUtil.sm3WithSalt(salt.getBytes()).digestHex(SmUtil.sm3(body.password))
 var user = {
-    id,
-    name,
-    username,
-    password: password,
-    phone,
-    isLogin,
-    officeId
+    name: body.name,
+    username: body.username,
+    phone: body.phone,
+    isLogin: body.isLogin,
+    officeId: body.officeId,
+    salt,
+    password
 }
+
+/*
 if(id){
     SqlCache.delete(`permissions:${id}`)
     db.update("""
         delete from sys_user_role where user_id = #{id}
     """)
 }
-id = db.table("sys_user").primary("id").saveOrUpdate(user)
-for(roleId in roles.split(',')){
-    db.table("sys_user_role").column('user_id', id).column("role_id", roleId).insert()
+*/
+
+var id = db.table("sys_user").primary("id").saveOrUpdate(user)
+if (body.roles){
+    var list = body.roles.map(role_id => ({ user_id : id, role_id }))
+    db.table('sys_user_role').batchInsert(list)
 }
+
+

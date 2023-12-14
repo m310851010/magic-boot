@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "重置用户密码",
   "createTime" : null,
-  "updateTime" : 1702401194760,
+  "updateTime" : 1702555586622,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -36,15 +36,18 @@
 ================================
 import cn.hutool.crypto.SmUtil
 import cn.dev33.satoken.stp.StpUtil
+import cn.hutool.core.util.RandomUtil;
 import env;
 
 var user = db.table('sys_user').column('salt').where().eq('id', id).selectOne()
 assert user : 0, '用户不存在'
 
 var defaultPassword = env.get('default-password');
+var salt = RandomUtil.randomStringUpper(20);
 var data = {
     id,
-    password: SmUtil.sm3WithSalt(user.salt.getBytes()).digestHex(SmUtil.sm3(defaultPassword))
+    salt,
+    password: SmUtil.sm3WithSalt(salt.getBytes()).digestHex(SmUtil.sm3(defaultPassword))
 }
 
 db.table('sys_user').primary('id').update(data, true)

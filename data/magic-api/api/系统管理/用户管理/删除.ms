@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "删除",
   "createTime" : null,
-  "updateTime" : 1655304921225,
+  "updateTime" : 1702553297561,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -48,6 +48,7 @@
 ================================
 import org.ssssssss.magicapi.modules.db.cache.SqlCache
 
+assert id : 0, '请选择用户再删除'
 if(Arrays.asList(id.split(',')).contains('1')){
     exit 500, '不允许删除超级管理员'
 }

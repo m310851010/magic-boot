@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "修改当前用户密码",
   "createTime" : null,
-  "updateTime" : 1702401264228,
+  "updateTime" : 1702555405222,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -35,9 +35,11 @@ var user = db.selectValue("""
 
 assert user.password == SmUtil.sm3WithSalt(user.salt.getBytes()).digestHex(password) : 0, '原密码不正确！'
 
+var salt = RandomUtil.randomStringUpper(20);
 var data = {
     id: StpUtil.getLoginId(),
-    password: SmUtil.sm3WithSalt(user.salt.getBytes()).digestHex(newPassword)
+    salt,
+    password: SmUtil.sm3WithSalt(salt.getBytes()).digestHex(newPassword)
 }
 
 return db.table('sys_user').primary('id').update(data, true)

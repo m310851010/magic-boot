@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "个人信息修改",
   "createTime" : null,
-  "updateTime" : 1702312129263,
+  "updateTime" : 1702559132014,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -22,24 +22,33 @@
   "responseBodyDefinition" : null
 }
 ================================
+import cn.dev33.satoken.secure.SaSecureUtil;
+import org.ssssssss.magicapi.modules.db.cache.SqlCache
 import cn.hutool.crypto.SmUtil
+import cn.hutool.core.util.RandomUtil;
+import env;
 
-assert password : 0, '原密码不能为空'
-assert newPassword : 0, '新密码不能为空'
+assert body.id : 0, '用户id不能为空'
+assert body.id != '1' : 0, '超级管理员不能修改'
 
-var user = db.selectValue("""
-    select password, salt from sys_user where id = #{id}
+var id = body.id;
+var user = {
+    id,
+    name: body.name,
+    phone: body.phone,
+    officeId: body.officeId,
+    isLogin: body.isLogin
+}
+
+SqlCache.delete(`permissions:${id}`)
+db.update("""
+    delete from sys_user_role where user_id = #{id}
 """)
 
-if(user.password != SmUtil.sm3WithSalt(user.salt.getBytes()).digestHex(password)){
-    exit 0, '原密码不正确！'
+var id = db.table("sys_user").primary("id").saveOrUpdate(user)
+if (body.roles){
+    var list = body.roles.map(role_id => ({ user_id : id, role_id }))
+    db.table('sys_user_role').batchInsert(list)
 }
 
-var data = {
-    id,
-    phone,
-    headPortrait,
-    password: SmUtil.sm3WithSalt(user.salt.getBytes()).digestHex(newPassword)
-}
-
-return db.table('sys_user').primary('id').update(data, true)
+return true;

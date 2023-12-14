@@ -2,12 +2,5 @@
 server:
   port: 8089
 
-spring:
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://rain.db.elephantsql.com/jsvltpbw
-    username: jsvltpbw
-    password: tm39HpyjvnEAx0CUmorpaQAYJMGn77wO
-
 upload:
   dir: /Users/mdc/mb/

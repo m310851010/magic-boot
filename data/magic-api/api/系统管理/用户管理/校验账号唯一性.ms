@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "校验账号唯一性",
   "createTime" : null,
-  "updateTime" : 1702394372744,
+  "updateTime" : 1702546922596,
   "lock" : null,
   "createBy" : null,
   "updateBy" : null,
@@ -46,5 +46,4 @@
   "responseBodyDefinition" : null
 }
 ================================
-
-return !db.selectInt('select count(1) from sys_user where username = #{username}');
+return !db.selectInt('select count(1) from sys_user where is_del = 0 and username = #{username}');
