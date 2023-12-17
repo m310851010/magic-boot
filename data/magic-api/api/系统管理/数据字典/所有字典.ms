@@ -5,7 +5,7 @@
   "groupId" : "c7ce65f5b3cf4aaa913f6fec7d35d176",
   "name" : "所有字典",
   "createTime" : null,
-  "updateTime" : 1647790584427,
+  "updateTime" : 1702827516172,
   "lock" : null,
   "createBy" : null,
   "updateBy" : null,
@@ -131,5 +131,5 @@
 }
 ================================
 return db.select("""
-    select desc_ribe label,type value from sys_dict where is_del = 0
+    select `desc` label,type value from sys_dict where is_del = 0
 """)
