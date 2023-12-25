@@ -5,7 +5,7 @@
   "groupId" : "67b2ce258e24491194b74992958c74aa",
   "name" : "保存",
   "createTime" : null,
-  "updateTime" : 1703434976026,
+  "updateTime" : 1703475020301,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -61,18 +61,34 @@
 import org.ssssssss.magicapi.modules.db.cache.SqlCache;
 import '@get:/system/menu/cache/delete' as cacheDelete;
 
-assert body : 0, '参数错误'
-assert body.menuType : 0, '菜单类型不能为空'
-assert body.name : 0, '菜单名称不能为空'
+assert body: 0, '参数错误'
+assert body.menuType: 0, '菜单类型不能为空'
+assert body.name: 0, '菜单名称不能为空'
 
-if (!body.pid){
+if (!body.pid) {
     body.pid = '0'
 }
 
-var result = db.table("sys_menu").primary("id").withBlank().saveOrUpdate(body);
+var menu = {
+    componentName: body.componentName,
+    '`desc`': body.desc,
+    icon: body.icon,
+    id: body.id,
+    isShow: body.isShow,
+    keepAlive: body.keepAlive,
+    name: body.name,
+    permission: body.permission,
+    pid: body.pid,
+    sort: body.sort,
+    url: body.url,
+    menuType: body.menuType
+}
+
+
+var result = db.table("sys_menu").primary("id").withBlank().saveOrUpdate(menu);
 
 SqlCache.delete('permissions:1')
-if(data.id){
+if (data.id) {
     var menuId = data.id
     cacheDelete();
 }
