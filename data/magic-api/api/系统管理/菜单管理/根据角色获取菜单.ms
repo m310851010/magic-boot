@@ -5,7 +5,7 @@
   "groupId" : "67b2ce258e24491194b74992958c74aa",
   "name" : "根据角色获取菜单",
   "createTime" : null,
-  "updateTime" : 1646552458043,
+  "updateTime" : 1703603510693,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -118,6 +118,7 @@
   }
 }
 ================================
+assert roleId : 0, '参数为空'
 return db.select("""
-    select menu_id id from sys_role_menu where role_id = #{roleId}
+    select menu_id as id from sys_role_menu where role_id = #{roleId}
 """).map(it => it.id)

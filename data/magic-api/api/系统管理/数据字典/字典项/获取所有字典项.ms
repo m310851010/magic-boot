@@ -5,7 +5,7 @@
   "groupId" : "376f26eb43a44a3daeafd27020a96f48",
   "name" : "获取所有字典项",
   "createTime" : null,
-  "updateTime" : 1647790331786,
+  "updateTime" : 1703594552992,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -107,5 +107,5 @@
 }
 ================================
 return db.select("""
-    select label,value,d.type from sys_dict_items it left join sys_dict d on d.id = it.dict_id where it.is_del = '0' and d.is_del = '0' order by it.sort
+    select it.label,it.value from sys_dict_items it left join sys_dict d on d.id = it.dict_id where it.is_del = '0' and d.is_del = '0' order by it.sort
 """)

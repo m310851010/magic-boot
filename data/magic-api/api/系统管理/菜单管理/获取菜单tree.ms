@@ -5,7 +5,7 @@
   "groupId" : "67b2ce258e24491194b74992958c74aa",
   "name" : "获取菜单tree",
   "createTime" : null,
-  "updateTime" : 1703576865036,
+  "updateTime" : 1702825106150,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,

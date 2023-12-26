@@ -4,8 +4,8 @@
   "script" : null,
   "groupId" : "8295fc13678d4144bf7363c465247a50",
   "name" : "根据角色获取组织机构",
-  "createTime" : 1646490239498,
-  "updateTime" : 1642080922495,
+  "createTime" : null,
+  "updateTime" : 1703603368666,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -95,5 +95,5 @@
 }
 ================================
 return db.select("""
-    select office_id id from sys_role_office where role_id = #{roleId}
+    select office_id as id from sys_role_office where role_id = #{roleId}
 """).map(it => it.id)
