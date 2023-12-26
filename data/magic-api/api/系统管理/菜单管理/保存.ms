@@ -5,7 +5,7 @@
   "groupId" : "67b2ce258e24491194b74992958c74aa",
   "name" : "保存",
   "createTime" : null,
-  "updateTime" : 1703475020301,
+  "updateTime" : 1703562012793,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -70,10 +70,10 @@ if (!body.pid) {
 }
 
 var menu = {
+     id: body.id,
     componentName: body.componentName,
     '`desc`': body.desc,
     icon: body.icon,
-    id: body.id,
     isShow: body.isShow,
     keepAlive: body.keepAlive,
     name: body.name,

@@ -5,10 +5,10 @@
   "groupId" : "89130d496f6f467c88b22ae4a7f688eb",
   "name" : "保存",
   "createTime" : null,
-  "updateTime" : 1665500810912,
+  "updateTime" : 1703562126946,
   "lock" : "0",
   "createBy" : null,
-  "updateBy" : "guyi",
+  "updateBy" : null,
   "path" : "/save",
   "method" : "POST",
   "parameters" : [ ],
@@ -48,19 +48,17 @@
 ================================
 import '@get:/system/role/cache/delete' as cacheDelete
 
-var codeCount = db.selectInt("select count(1) from sys_role where is_del = 0 and code = #{code} ?{id, and id != #{id}}")
-if(codeCount > 0){
-    exit 0,'角色编码已存在'
-}
+assert body: 0, '参数错误'
+assert body.name: 0, '角色名称不能为空'
 
+var id = body.id
 var role = {
-    code,
-    permission,
-    descRibe,
-    type,
-    name,
-    sort,
-    id
+    id,
+    permission: body.permission,
+    '`desc`': body.desc,
+    type: body.type,
+    name: body.name,
+    sort: body.sort
 }
 if(id){
     db.table("sys_role_menu").where().eq("role_id",id).delete()
@@ -70,7 +68,7 @@ for(menuId in menus.split(',')){
     db.table("sys_role_menu").column("menu_id",menuId).column("role_id", id).insert();
 }
 db.table("sys_role_office").where().eq("role_id",id).delete()
-if(offices && permission == 1){
+if(body.offices && body.permission == 1){
     for(officeId in offices.split(',')){
         db.table("sys_role_office").column("office_id",officeId).column("role_id", id).insert();
     }

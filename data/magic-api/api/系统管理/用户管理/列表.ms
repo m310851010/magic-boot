@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "列表",
   "createTime" : null,
-  "updateTime" : 1702558764380,
+  "updateTime" : 1703553507667,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -119,10 +119,11 @@
 }
 ================================
 import cn.dev33.satoken.stp.StpUtil
+import log
 
 var page = db.page("""
     select
-        su.id,
+        distinct su.id,
         su.username,
         su.name,
         su.is_login,
@@ -146,6 +147,8 @@ var page = db.page("""
 if (!page.list){
     return page;
 }
+
+log.info('查询结果条数 {}', page.list.length)
 
 var userIds = page.list.map(v => v.id)
 

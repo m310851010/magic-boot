@@ -5,7 +5,7 @@
   "groupId" : "89130d496f6f467c88b22ae4a7f688eb",
   "name" : "列表",
   "createTime" : null,
-  "updateTime" : 1646552461206,
+  "updateTime" : 1703563581187,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -178,7 +178,7 @@
   }
 }
 ================================
-return db.page("""
-    select id, name, code, permission, desc_ribe from sys_role where is_del = 0
-    ?{name, and name like concat('%',#{name},'%')}
+return db.select("""
+    select id, name, permission, `desc`, status from sys_role where is_del = 0
+    ?{body?.name, and name like concat('%',#{body.name},'%')}
 """)
