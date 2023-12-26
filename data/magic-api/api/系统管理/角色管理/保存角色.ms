@@ -3,9 +3,9 @@
   "id" : "f9a5956afdfd4492966b1a3c04dbadf6",
   "script" : null,
   "groupId" : "89130d496f6f467c88b22ae4a7f688eb",
-  "name" : "保存",
+  "name" : "保存角色",
   "createTime" : null,
-  "updateTime" : 1703562126946,
+  "updateTime" : 1703575148114,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -54,27 +54,9 @@ assert body.name: 0, '角色名称不能为空'
 var id = body.id
 var role = {
     id,
-    permission: body.permission,
     '`desc`': body.desc,
-    type: body.type,
-    name: body.name,
-    sort: body.sort
+    name: body.name
 }
-if(id){
-    db.table("sys_role_menu").where().eq("role_id",id).delete()
-}
-id = db.table("sys_role").primary("id").saveOrUpdate(role);
-for(menuId in menus.split(',')){
-    db.table("sys_role_menu").column("menu_id",menuId).column("role_id", id).insert();
-}
-db.table("sys_role_office").where().eq("role_id",id).delete()
-if(body.offices && body.permission == 1){
-    for(officeId in offices.split(',')){
-        db.table("sys_role_office").column("office_id",officeId).column("role_id", id).insert();
-    }
-}
-if(id){
-    // 先删除数据库 后删除缓存 不然拦截器会请求查询数据库 查到的还是老数据
-    var roleId = id
-    cacheDelete()
-}
+
+return db.table("sys_role").primary("id").saveOrUpdate(role);
+ 

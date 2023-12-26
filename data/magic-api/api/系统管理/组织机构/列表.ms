@@ -4,8 +4,8 @@
   "script" : null,
   "groupId" : "8295fc13678d4144bf7363c465247a50",
   "name" : "列表",
-  "createTime" : 1646490239494,
-  "updateTime" : 1645694064991,
+  "createTime" : null,
+  "updateTime" : 1703576948602,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -106,10 +106,5 @@
   }
 }
 ================================
-var toTree = (list,pid) => select t.*,toTree(list,t.id) children from list t where t.pid = pid
-var list = toTree(db.select('select id,name,pid,type,sort,code from sys_office where is_del = 0 order by sort'),'0')
-
-return {
-    list: list,
-    total: list.getLength()
-}
+var toTree = (list,pid) => select t.*, toTree(list, t.id) children from list t where t.pid = pid
+return toTree(db.select('select id, id as `key`, name, name as title, pid,type,sort,code from sys_office where is_del = 0 order by sort'),'0')
