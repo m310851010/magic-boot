@@ -5,7 +5,7 @@
   "groupId" : "89130d496f6f467c88b22ae4a7f688eb",
   "name" : "删除",
   "createTime" : null,
-  "updateTime" : 1703562430635,
+  "updateTime" : 1703667729789,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -52,6 +52,7 @@ var userCount = db.selectInt("select count(1) from sys_user_role where role_id =
 assert (userCount > 0) : 0, '角色已分配,不允许删除'
 
 db.table("sys_role_menu").where().eq("role_id",id).delete()
+db.table("sys_role_office").where().eq("role_id",id).delete()
 var result = db.table("sys_role").logic().where().eq("id",id).delete();
 
 var roleId = id
