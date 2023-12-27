@@ -5,7 +5,7 @@
   "groupId" : "89130d496f6f467c88b22ae4a7f688eb",
   "name" : "保存角色",
   "createTime" : null,
-  "updateTime" : 1703575148114,
+  "updateTime" : 1703700656778,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -48,8 +48,7 @@
 ================================
 import '@get:/system/role/cache/delete' as cacheDelete
 
-assert body: 0, '参数错误'
-assert body.name: 0, '角色名称不能为空'
+assert body?.name: 0, '角色名称不能为空'
 
 var id = body.id
 var role = {
@@ -59,4 +58,3 @@ var role = {
 }
 
 return db.table("sys_role").primary("id").saveOrUpdate(role);
- 

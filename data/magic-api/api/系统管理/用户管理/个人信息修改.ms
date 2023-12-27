@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "个人信息修改",
   "createTime" : null,
-  "updateTime" : 1702559132014,
+  "updateTime" : 1703696078725,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -41,9 +41,7 @@ var user = {
 }
 
 SqlCache.delete(`permissions:${id}`)
-db.update("""
-    delete from sys_user_role where user_id = #{id}
-""")
+db.table('sys_user_role').where().eq('user_id', id).delete();
 
 var id = db.table("sys_user").primary("id").saveOrUpdate(user)
 if (body.roles){

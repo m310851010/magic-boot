@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "列表",
   "createTime" : null,
-  "updateTime" : 1703649080548,
+  "updateTime" : 1703686820617,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -119,7 +119,6 @@
 }
 ================================
 import cn.dev33.satoken.stp.StpUtil
-import log
 
 var page = db.page("""
     select

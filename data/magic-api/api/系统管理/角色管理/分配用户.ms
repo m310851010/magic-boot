@@ -5,16 +5,16 @@
   "groupId" : "89130d496f6f467c88b22ae4a7f688eb",
   "name" : "分配用户",
   "createTime" : null,
-  "updateTime" : 1703589494167,
+  "updateTime" : 1703700637676,
   "lock" : null,
   "createBy" : null,
   "updateBy" : null,
-  "path" : "/users",
+  "path" : "/allocate/users",
   "method" : "POST",
   "parameters" : [ ],
   "options" : [ {
     "name" : "permission",
-    "value" : "role:users",
+    "value" : "role:user:allocate",
     "description" : "允许拥有该权限的访问",
     "required" : false,
     "dataType" : "String",
@@ -34,24 +34,24 @@
   "responseBodyDefinition" : null
 }
 ================================
-import '@get:/system/role/cache/delete' as cacheDelete
-var id = body.id;
+import org.ssssssss.magicapi.modules.db.cache.SqlCache
+
+var id = body?.id;
 assert id: 0, '请先选择一个角色'
+assert body.users?.length: 0, '请选择要分配的用户'
+
 
 // 查询角色
-var role = db.table("sys_role").primary("id").where().eq('is_del', 0).selectOne();
-assert role?.id: 0, '角色不存在或已被删除'
+var userCount = db.selectInt("select count(1) from sys_role where id = #{id}")
+assert userCount : 0, '角色不存在或已被删除'
 
-// 删除用户-角色关系
-db.table("sys_user_role").where().eq("role_id",id).delete()
 // 批量插入角色-菜单关系
-if (body.users && body.users.length){
-    var list = body.users.map(user_id => ({ role_id: id, user_id }))
-    db.table('sys_user_role').batchInsert(list)
-}
+var list = body.users.map(user_id => ({ role_id: id, user_id }))
+db.table('sys_user_role').batchInsert(list)
 
-// 先删除数据库 后删除缓存 不然拦截器会请求查询数据库 查到的还是老数据
-var roleId = id
-cacheDelete()
+// 清除缓存
+for(userId in body.users){
+    SqlCache.delete(`permissions:${userId}`)
+}
 
 return true;

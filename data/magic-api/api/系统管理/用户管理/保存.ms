@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "保存",
   "createTime" : null,
-  "updateTime" : 1702551910456,
+  "updateTime" : 1703696745295,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -56,8 +56,8 @@ import env;
 assert body.username : 0, '账号不能为空'
 assert (/^\w{3,64}$/.test(body.username)) :  0, '账号必须是长度在3~64位之间的数字、字母的组合'
 
-var usernameCount = db.selectInt("select count(1) from sys_user where is_del = 0 and username = #{username}")
-assert usernameCount == 0 : 0, '该账号已存在，请重新'
+var usernameCount = db.selectInt("select count(1) from sys_user where is_del = 0 and username = #{body.username}")
+assert (usernameCount == 0) : 0, '该账号已存在，请重新输入'
 
 if (!body.password){
     body.password = env.get('default-password');
@@ -75,19 +75,10 @@ var user = {
     password
 }
 
-/*
-if(id){
-    SqlCache.delete(`permissions:${id}`)
-    db.update("""
-        delete from sys_user_role where user_id = #{id}
-    """)
-}
-*/
-
 var id = db.table("sys_user").primary("id").saveOrUpdate(user)
 if (body.roles){
     var list = body.roles.map(role_id => ({ user_id : id, role_id }))
     db.table('sys_user_role').batchInsert(list)
 }
 
-
+return true

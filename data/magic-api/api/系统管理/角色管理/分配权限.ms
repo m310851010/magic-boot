@@ -5,7 +5,7 @@
   "groupId" : "89130d496f6f467c88b22ae4a7f688eb",
   "name" : "分配权限",
   "createTime" : null,
-  "updateTime" : 1703607673121,
+  "updateTime" : 1703700642456,
   "lock" : null,
   "createBy" : null,
   "updateBy" : null,
@@ -36,7 +36,7 @@
 ================================
 import '@get:/system/role/cache/delete' as cacheDelete
 
-var id = body.id;
+var id = body?.id;
 assert id: 0, '请先选择一个角色'
 
 // 更新角色
