@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "列表",
   "createTime" : null,
-  "updateTime" : 1703553507667,
+  "updateTime" : 1703649080548,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -141,14 +141,13 @@ var page = db.page("""
     ?{body?.username, and su.username like concat('%',#{body.username},'%')}
     ?{body?.name, and su.name like concat('%',#{body.name},'%')}
     ?{body?.isLogin, and su.is_login = #{body.isLogin}}
+    ?{body?.phone, and su.phone like concat('%',#{body.phone},'%')}
     order by ${body?.orderBy || 'su.create_date desc'}
 """)
 
 if (!page.list){
     return page;
 }
-
-log.info('查询结果条数 {}', page.list.length)
 
 var userIds = page.list.map(v => v.id)
 
