@@ -5,7 +5,7 @@
   "groupId" : "67b2ce258e24491194b74992958c74aa",
   "name" : "保存",
   "createTime" : null,
-  "updateTime" : 1703562012793,
+  "updateTime" : 1703682158339,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -70,18 +70,19 @@ if (!body.pid) {
 }
 
 var menu = {
-     id: body.id,
-    componentName: body.componentName,
-    '`desc`': body.desc,
-    icon: body.icon,
-    isShow: body.isShow,
-    keepAlive: body.keepAlive,
+    id: body.id,
     name: body.name,
-    permission: body.permission,
     pid: body.pid,
     sort: body.sort,
+    '`desc`': body.desc,
+    isShow: body.isShow,
+    menuType: body.menuType,
+    icon: body.icon,
+    permission: body.permission,
+    componentName: body.componentName,
     url: body.url,
-    menuType: body.menuType
+    frame: body.frame,
+    openMode: body.openMode
 }
 
 
