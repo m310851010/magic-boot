@@ -5,7 +5,7 @@
   "groupId" : "89130d496f6f467c88b22ae4a7f688eb",
   "name" : "保存角色",
   "createTime" : null,
-  "updateTime" : 1703700656778,
+  "updateTime" : 1703766747718,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -46,7 +46,6 @@
   "responseBodyDefinition" : null
 }
 ================================
-import '@get:/system/role/cache/delete' as cacheDelete
 
 assert body?.name: 0, '角色名称不能为空'
 
