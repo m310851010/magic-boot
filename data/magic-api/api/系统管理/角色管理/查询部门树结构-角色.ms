@@ -1,22 +1,34 @@
 {
   "properties" : { },
-  "id" : "55ddadf56dfe433baae1b5c26580cf00",
+  "id" : "copy1703852984218d47362",
   "script" : null,
-  "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
-  "name" : "所有机构",
+  "groupId" : "89130d496f6f467c88b22ae4a7f688eb",
+  "name" : "查询部门树结构-角色",
   "createTime" : null,
-  "updateTime" : 1680361919209,
+  "updateTime" : 1703862570433,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
-  "path" : "/offices",
+  "path" : "/office/tree",
   "method" : "GET",
   "parameters" : [ ],
-  "options" : [ ],
-  "requestBody" : "",
+  "options" : [ {
+    "name" : "permission",
+    "value" : "role:office:tree",
+    "description" : "允许拥有该权限的访问",
+    "required" : false,
+    "dataType" : "String",
+    "type" : null,
+    "defaultValue" : null,
+    "validateType" : null,
+    "error" : null,
+    "expression" : null,
+    "children" : null
+  } ],
+  "requestBody" : "{\n\n}",
   "headers" : [ ],
   "paths" : [ ],
-  "responseBody" : "{\n    \"code\": 500,\n    \"message\": \"系统内部出现错误\",\n    \"data\": null,\n    \"timestamp\": 1680361909126,\n    \"executeTime\": 175\n}",
+  "responseBody" : "{\n    \"code\": 402,\n    \"data\": null,\n    \"message\": \"登录已超时，请重新登录\"\n}",
   "description" : null,
   "requestBodyDefinition" : null,
   "responseBodyDefinition" : {
@@ -32,7 +44,7 @@
     "expression" : "",
     "children" : [ {
       "name" : "code",
-      "value" : "500",
+      "value" : "402",
       "description" : "",
       "required" : false,
       "dataType" : "Integer",
@@ -44,7 +56,7 @@
       "children" : [ ]
     }, {
       "name" : "message",
-      "value" : "系统内部出现错误",
+      "value" : "凭证已过期",
       "description" : "",
       "required" : false,
       "dataType" : "String",
@@ -68,7 +80,7 @@
       "children" : [ ]
     }, {
       "name" : "timestamp",
-      "value" : "1680361909126",
+      "value" : "1645694060610",
       "description" : "",
       "required" : false,
       "dataType" : "Long",
@@ -80,10 +92,10 @@
       "children" : [ ]
     }, {
       "name" : "executeTime",
-      "value" : "175",
+      "value" : "null",
       "description" : "",
       "required" : false,
-      "dataType" : "Integer",
+      "dataType" : "Object",
       "type" : null,
       "defaultValue" : null,
       "validateType" : "",
@@ -94,10 +106,6 @@
   }
 }
 ================================
-var toTree = (list,pid) => select t.*,toTree(list,t.key) children from list t where t.pid = pid
-var list = toTree(db.select('select id "key",name label,pid from sys_office where is_del = 0 order by sort'),'0')
+import '@get:/system/office/inner/tree' as officeTree
 
-return {
-    list: list,
-    total: list.getLength()
-}
+return officeTree()

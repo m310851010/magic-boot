@@ -5,11 +5,11 @@
   "groupId" : "89130d496f6f467c88b22ae4a7f688eb",
   "name" : "查询角色关联的组织机构",
   "createTime" : null,
-  "updateTime" : 1703767110186,
+  "updateTime" : 1703863781810,
   "lock" : null,
   "createBy" : null,
   "updateBy" : null,
-  "path" : "offices/list",
+  "path" : "office/list",
   "method" : "GET",
   "parameters" : [ ],
   "options" : [ {

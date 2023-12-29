@@ -1,20 +1,21 @@
 {
   "properties" : { },
-  "id" : "fc8e8dbfa2dd40e0922a22f680cde084",
+  "id" : "copy1703862375957d84838",
   "script" : null,
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
-  "name" : "根据用户id获取角色列表",
-  "createTime" : 1646490239476,
-  "updateTime" : 1642773983120,
+  "name" : "查询部门树结构-用户",
+  "createTime" : null,
+  "updateTime" : 1703862561397,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
-  "path" : "/roles",
+  "path" : "/office/tree",
   "method" : "GET",
-  "parameters" : [ {
-    "name" : "userId",
-    "value" : "674a3aa6b1ea4d91a1f72e7879d415c3",
-    "description" : "",
+  "parameters" : [ ],
+  "options" : [ {
+    "name" : "permission",
+    "value" : "user:office:tree",
+    "description" : "允许拥有该权限的访问",
     "required" : false,
     "dataType" : "String",
     "type" : null,
@@ -24,11 +25,10 @@
     "expression" : null,
     "children" : null
   } ],
-  "options" : [ ],
   "requestBody" : "{\n\n}",
   "headers" : [ ],
   "paths" : [ ],
-  "responseBody" : "{\n    \"code\": 200,\n    \"message\": \"success\",\n    \"data\": [],\n    \"timestamp\": 1642773977670,\n    \"executeTime\": 2\n}",
+  "responseBody" : "{\n    \"code\": 402,\n    \"data\": null,\n    \"message\": \"登录已超时，请重新登录\"\n}",
   "description" : null,
   "requestBodyDefinition" : null,
   "responseBodyDefinition" : {
@@ -44,7 +44,7 @@
     "expression" : "",
     "children" : [ {
       "name" : "code",
-      "value" : "200",
+      "value" : "402",
       "description" : "",
       "required" : false,
       "dataType" : "Integer",
@@ -56,7 +56,7 @@
       "children" : [ ]
     }, {
       "name" : "message",
-      "value" : "success",
+      "value" : "凭证已过期",
       "description" : "",
       "required" : false,
       "dataType" : "String",
@@ -68,10 +68,10 @@
       "children" : [ ]
     }, {
       "name" : "data",
-      "value" : "",
+      "value" : "null",
       "description" : "",
       "required" : false,
-      "dataType" : "Array",
+      "dataType" : "Object",
       "type" : null,
       "defaultValue" : null,
       "validateType" : "",
@@ -80,7 +80,7 @@
       "children" : [ ]
     }, {
       "name" : "timestamp",
-      "value" : "1642773977670",
+      "value" : "1645694060610",
       "description" : "",
       "required" : false,
       "dataType" : "Long",
@@ -92,7 +92,7 @@
       "children" : [ ]
     }, {
       "name" : "executeTime",
-      "value" : "2",
+      "value" : "null",
       "description" : "",
       "required" : false,
       "dataType" : "Object",
@@ -106,6 +106,6 @@
   }
 }
 ================================
-return db.select("""
-    select role_id from sys_user_role where user_id = #{userId}
-""").map(it => {return it.roleId})
+import '@get:/system/office/inner/tree' as officeTree
+
+return officeTree()

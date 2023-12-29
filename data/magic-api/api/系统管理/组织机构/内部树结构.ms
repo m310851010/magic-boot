@@ -1,20 +1,20 @@
 {
   "properties" : { },
-  "id" : "64ba47c2a11346e1972c63245cbf962c",
+  "id" : "e6e93739948244aeb8c5c6a131419035",
   "script" : null,
-  "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
-  "name" : "修改登录状态",
+  "groupId" : "8295fc13678d4144bf7363c465247a50",
+  "name" : "内部树结构",
   "createTime" : null,
-  "updateTime" : 1703864506572,
-  "lock" : "0",
+  "updateTime" : 1703862543697,
+  "lock" : null,
   "createBy" : null,
   "updateBy" : null,
-  "path" : "/change/status",
+  "path" : "/inner/tree",
   "method" : "GET",
   "parameters" : [ ],
   "options" : [ {
     "name" : "permission",
-    "value" : "user:change:status",
+    "value" : "inner:office/tree",
     "description" : "允许拥有该权限的访问",
     "required" : false,
     "dataType" : "String",
@@ -34,5 +34,7 @@
   "responseBodyDefinition" : null
 }
 ================================
-import cn.dev33.satoken.stp.StpUtil
-return db.table("sys_user").column("isLogin", isLogin).where().eq("id",id).ne("id", StpUtil.getLoginId()).update()
+var toTree = (list, pid) => select t.*, toTree(list, t.key) children from list t where t.pid = pid
+return toTree(db.select("""
+select id as 'key', name as title, pid from sys_office where is_del = 0 order by sort
+"""),'0')
