@@ -5,7 +5,7 @@
   "groupId" : "8295fc13678d4144bf7363c465247a50",
   "name" : "列表",
   "createTime" : null,
-  "updateTime" : 1703852663781,
+  "updateTime" : 1703918256640,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -106,7 +106,8 @@
   }
 }
 ================================
-var toTree = (list,pid) => select t.*, toTree(list, t.id) children from list t where t.pid = pid
+var toTree = (list,pid) => select t.*, toTree(list, t.id) children, true expand from list t where t.pid = pid
 return toTree(db.select("""
-select id, id as 'key', name, name as title, pid,type,sort from sys_office where is_del = 0 order by sort
+select id, id as 'key', name, name as title, pid, status, type, sort, leader, phone, email,ext_json, create_date 
+from sys_office where is_del = 0 order by sort
 """),'0')
