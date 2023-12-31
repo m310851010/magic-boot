@@ -5,7 +5,7 @@
   "groupId" : "8295fc13678d4144bf7363c465247a50",
   "name" : "删除",
   "createTime" : null,
-  "updateTime" : 1679552802807,
+  "updateTime" : 1704030637004,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -118,16 +118,16 @@
   }
 }
 ================================
-var pCount = db.selectInt("select count(1) from sys_office where is_del = 0 and pid = #{id}")
-if(pCount > 0){
-    exit 500,'存在下级机构,不允许删除'
-}
+var code = db.selectValue("select code from sys_office where is_del = 0 and id = #{id}")
+assert code : 0, '部门不存在或已被删除'
+
 var userCount = db.selectInt("select count(1) from sys_user where is_del = 0 and office_id = #{id}")
 if(userCount > 0){
-    exit 500, '机构存在用户,不允许删除'
+    exit 500, '删除的部门中存在用户,不允许删除'
 }
+
 // var root = db.selectValue("select pid from sys_office where is_del = 0 and id = #{id}")
-// if(root == '0'){
+// if(root == 0){
 //     exit 500, '不能删除根节点'
 // }
 // db.table('sys_user_office').where().eq("office_id",id).delete();
