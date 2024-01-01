@@ -1,20 +1,20 @@
 {
   "properties" : { },
-  "id" : "789b43739f4b4ad3a79e732d621f8783",
+  "id" : "copy1703686490652d31638",
   "script" : null,
   "groupId" : "89130d496f6f467c88b22ae4a7f688eb",
-  "name" : "查询用户列表-角色",
+  "name" : "用户列表-未分配",
   "createTime" : null,
-  "updateTime" : 1703863149195,
+  "updateTime" : 1704110449446,
   "lock" : null,
   "createBy" : null,
   "updateBy" : null,
-  "path" : "/list/users",
+  "path" : "/unallocated/users",
   "method" : "POST",
   "parameters" : [ ],
   "options" : [ {
     "name" : "permission",
-    "value" : "role:user:list",
+    "value" : "role:user:unallocated",
     "description" : "允许拥有该权限的访问",
     "required" : false,
     "dataType" : "String",
@@ -34,7 +34,7 @@
   "responseBodyDefinition" : null
 }
 ================================
-assert body.roleId : 0 , '参数不能为空'
+assert body.id : 0 , '参数不能为空'
 
 return db.page("""
     select
@@ -47,9 +47,21 @@ return db.page("""
         su.head_portrait,
         so.name office_name
     from sys_user su
-    inner join sys_user_role sur on su.id = sur.user_id
-    left join sys_office so on su.office_id = so.id
-    where sur.role_id = #{body.roleId} and su.is_del = 0
+    LEFT JOIN sys_user_role sur on su.id = sur.user_id
+    LEFT JOIN sys_office so on su.office_id = so.id
+    LEFT JOIN sys_role r ON r.id = sur.role_id 
+    LEFT JOIN (
+        SELECT
+            u.id as user_id 
+        FROM
+            sys_user u
+            INNER JOIN sys_user_role ur ON u.id = ur.user_id 
+        WHERE
+            ur.role_id = #{body.id}
+    ) t ON su.id = t.user_id
+    where su.is_del = 0
+    AND ( r.id != #{body.id} OR r.id IS NULL) 
+    AND t.user_id IS NULL
     ?{body?.username, and su.username like concat('%',#{body.username},'%')}
     ?{body?.name, and su.name like concat('%',#{body.name},'%')}
     ?{body?.phone, and su.phone like concat('%',#{body.phone},'%')}

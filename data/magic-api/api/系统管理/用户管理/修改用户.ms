@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "修改用户",
   "createTime" : null,
-  "updateTime" : 1703864279168,
+  "updateTime" : 1704112184856,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -52,7 +52,6 @@ var user = {
     isLogin: body.isLogin
 }
 
-SqlCache.delete(`permissions:${id}`)
 db.table('sys_user_role').where().eq('user_id', id).delete();
 
 var id = db.table("sys_user").primary("id").saveOrUpdate(user)
@@ -61,4 +60,5 @@ if (body.roles){
     db.table('sys_user_role').batchInsert(list)
 }
 
+SqlCache.delete(`permissions:${id}`)
 return true;

@@ -5,7 +5,7 @@
   "groupId" : "8295fc13678d4144bf7363c465247a50",
   "name" : "删除",
   "createTime" : null,
-  "updateTime" : 1704030637004,
+  "updateTime" : 1704113549630,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -121,10 +121,10 @@
 var code = db.selectValue("select code from sys_office where is_del = 0 and id = #{id}")
 assert code : 0, '部门不存在或已被删除'
 
-var userCount = db.selectInt("select count(1) from sys_user where is_del = 0 and office_id = #{id}")
-if(userCount > 0){
-    exit 500, '删除的部门中存在用户,不允许删除'
-}
+var userCount = db.selectInt("""
+select count(1) from sys_user su, sys_office so where su.office_id = so.id and su.is_del = 0 and so.code like '${code}%'
+""")
+assert !userCount : 0, '删除的部门中存在用户，不允许删除'
 
 // var root = db.selectValue("select pid from sys_office where is_del = 0 and id = #{id}")
 // if(root == 0){
