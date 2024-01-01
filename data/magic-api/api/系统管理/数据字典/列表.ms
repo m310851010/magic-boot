@@ -5,7 +5,7 @@
   "groupId" : "c7ce65f5b3cf4aaa913f6fec7d35d176",
   "name" : "列表",
   "createTime" : null,
-  "updateTime" : 1702827539478,
+  "updateTime" : 1704126886813,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -118,10 +118,8 @@
   }
 }
 ================================
-return db.page("""
-    select id,dict_type,`desc`,type,remarks,create_date from sys_dict
-    where is_del = 0
-    ?{type, and type like concat('%',#{type},'%')}
-    ?{dictType, and dict_type = #{dictType}}
+return db.select("""
+    select id, label, value, dict_type, data_type, ext_json, 'desc',create_date from sys_dict
+    where is_del = 0 and pid = '0'
     order by create_date desc
 """)
