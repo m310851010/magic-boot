@@ -5,7 +5,7 @@
   "groupId" : "c7ce65f5b3cf4aaa913f6fec7d35d176",
   "name" : "字典值列表",
   "createTime" : null,
-  "updateTime" : 1703570099057,
+  "updateTime" : 1704175948875,
   "lock" : null,
   "createBy" : null,
   "updateBy" : null,
@@ -25,6 +25,11 @@
 return db.select("""
     select a.label, a.value, b.data_type, a.ext_json 
     from sys_dict a, sys_dict b 
-    where b.value = #{path.value} and b.is_del = 0 and b.status = 0 and a.pid = b.id and a.is_del = 0 and a.status = 0 
+    where a.pid = b.id
+        and b.value = #{path.value}
+        and b.is_del = 0
+        and b.status = 0
+        and a.is_del = 0
+        and a.status = 0
     order by a.sort
 """)

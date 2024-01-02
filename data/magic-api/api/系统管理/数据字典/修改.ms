@@ -1,20 +1,20 @@
 {
   "properties" : { },
-  "id" : "ed33e9c6270446118cf5674299778959",
+  "id" : "copy1704175255491d44396",
   "script" : null,
-  "groupId" : "376f26eb43a44a3daeafd27020a96f48",
-  "name" : "删除",
+  "groupId" : "c7ce65f5b3cf4aaa913f6fec7d35d176",
+  "name" : "修改",
   "createTime" : null,
-  "updateTime" : 1646553109828,
+  "updateTime" : 1704175999059,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
-  "path" : "/delete",
-  "method" : "DELETE",
+  "path" : "/update",
+  "method" : "POST",
   "parameters" : [ ],
   "options" : [ {
     "name" : "permission",
-    "value" : "dict:items:delete",
+    "value" : "dict:update",
     "description" : "允许拥有该权限的访问",
     "required" : false,
     "dataType" : "String",
@@ -30,20 +30,14 @@
   "paths" : [ ],
   "responseBody" : null,
   "description" : null,
-  "requestBodyDefinition" : {
-    "name" : "",
-    "value" : "",
-    "description" : "",
-    "required" : false,
-    "dataType" : "Object",
-    "type" : null,
-    "defaultValue" : null,
-    "validateType" : "",
-    "error" : "",
-    "expression" : "",
-    "children" : [ ]
-  },
+  "requestBodyDefinition" : null,
   "responseBodyDefinition" : null
 }
 ================================
-return db.table("sys_dict_items").logic().where().eq("id",id).delete();
+
+import '@post:/system/dict/save' as saveDict;
+
+assert body : 0, '参数错误'
+assert body.id : 0, '请选择字典再修改'
+
+return saveDict()

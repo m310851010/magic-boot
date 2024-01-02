@@ -5,7 +5,7 @@
   "groupId" : "c7ce65f5b3cf4aaa913f6fec7d35d176",
   "name" : "列表",
   "createTime" : null,
-  "updateTime" : 1704126886813,
+  "updateTime" : 1704175643116,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -119,7 +119,7 @@
 }
 ================================
 return db.select("""
-    select id, label, value, dict_type, data_type, ext_json, 'desc',create_date from sys_dict
-    where is_del = 0 and pid = '0'
-    order by create_date desc
+    select id, pid, label, value, dict_type, data_type, status, ext_json, sort, 'desc', create_date from sys_dict
+    where is_del = 0 ?{body?.pid, and pid = #{body.pid}}
+    order by sort
 """)

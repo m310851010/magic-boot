@@ -5,7 +5,7 @@
   "groupId" : "c7ce65f5b3cf4aaa913f6fec7d35d176",
   "name" : "删除",
   "createTime" : null,
-  "updateTime" : 1646553112581,
+  "updateTime" : 1704171993717,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -46,5 +46,9 @@
   "responseBodyDefinition" : null
 }
 ================================
-db.table("sys_dict_items").logic().where().eq("dictId",id).delete()
-return db.table("sys_dict").logic().where().eq("id",id).delete()
+if (pid == '0'){
+    db.table("sys_dict").logic().where().eq("pid",id).delete()
+}
+
+var ids = id.split(',')
+return db.table("sys_dict").logic().where().in('id',ids).eq('pid', pid).delete()

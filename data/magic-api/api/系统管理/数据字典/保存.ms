@@ -4,8 +4,8 @@
   "script" : null,
   "groupId" : "c7ce65f5b3cf4aaa913f6fec7d35d176",
   "name" : "保存",
-  "createTime" : 1646490239430,
-  "updateTime" : 1644121671060,
+  "createTime" : null,
+  "updateTime" : 1704175992200,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -13,18 +13,6 @@
   "method" : "POST",
   "parameters" : [ ],
   "options" : [ {
-    "name" : "wrap_request_parameter",
-    "value" : "data",
-    "description" : "包装请求参数到一个变量中",
-    "required" : false,
-    "dataType" : "String",
-    "type" : null,
-    "defaultValue" : null,
-    "validateType" : null,
-    "error" : null,
-    "expression" : null,
-    "children" : null
-  }, {
     "name" : "permission",
     "value" : "dict:save",
     "description" : "允许拥有该权限的访问",
@@ -46,8 +34,34 @@
   "responseBodyDefinition" : null
 }
 ================================
-var typeCount = db.selectInt("select count(1) from sys_dict where is_del = 0 and type = #{data.type} ?{id, and id != #{data.id}}")
-if(typeCount > 0){
-    exit 0,'类型已存在'
+assert body : 0, '参数错误'
+assert body.pid : 0, '参数错误'
+assert body.label : 0, '字典名称不能为空'
+assert body.value : 0, '字典值不能为空'
+
+if (body.pid == '0'){
+    assert body.dataType == 0 || body.dataType == 1 : 0, '数据类型错误'
+    assert body.dictType == 0 || body.dictType == 1  : 0, '字典类型错误'
 }
-return db.table("sys_dict").primary("id").saveOrUpdate(data)
+
+var valueCount = db.selectInt("""
+select count(1) from sys_dict where is_del = 0 and pid = #{body.pid} and value = #{body.value} ?{body.id, and id != #{body.id}}
+""")
+assert !valueCount : 0, '字典值已存在'
+
+var dic = {
+    id: body.id,
+    label: body.label,
+    pid: body.pid,
+    sort: body.sort,
+    status: body.status,
+    value: body.value,
+    extJson: body.extJson
+};
+
+if (body.pid == '0'){
+    dic.dataType = body.dataType;
+    dic.dictType = body.dictType;
+}
+
+return db.table("sys_dict").primary("id").saveOrUpdate(dic)
