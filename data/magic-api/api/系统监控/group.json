@@ -1,0 +1,14 @@
+{
+  "properties" : { },
+  "id" : "4070b7f458eb408b83a2ef0513883f11",
+  "name" : "系统监控",
+  "type" : "api",
+  "parentId" : "0",
+  "path" : "/monitor",
+  "createTime" : 1704208801310,
+  "updateTime" : null,
+  "createBy" : null,
+  "updateBy" : null,
+  "paths" : [ ],
+  "options" : [ ]
+}

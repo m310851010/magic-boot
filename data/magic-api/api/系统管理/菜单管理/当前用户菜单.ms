@@ -5,7 +5,7 @@
   "groupId" : "67b2ce258e24491194b74992958c74aa",
   "name" : "当前用户菜单",
   "createTime" : null,
-  "updateTime" : 1685784587489,
+  "updateTime" : 1704207071436,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -550,7 +550,9 @@
   }
 }
 ================================
-import 'cn.dev33.satoken.stp.StpUtil';
+import cn.dev33.satoken.stp.StpUtil
+
+var toTree = (list, pid) => select t.*, toTree(list, t.id) children from list t where t.pid = pid
 
 var userId = StpUtil.getLoginId()
 
@@ -575,39 +577,4 @@ var menus = db.select("""
     } and sm.is_del = '0' and sm.is_show = 1 order by sm.sort
 """)
 
-for(menu in menus){
-    menu.component = (menu.url || "Layout");
-    menu.path = (menu.component == 'Layout' ? "/" : menu.component);
-    menu.meta = {}
-    menu.meta.title = menu.name
-    menu.meta.icon = menu.icon
-    menu.meta.keepAlive = (menu.keepAlive == '1' ? true : false)
-}
-var nodes = menus.toMap(it => it.id)
-nodes.each((key, node) => {
-    if (nodes.containsKey(node.pid)) {
-        nodes[node.pid].redirect = "noRedirect";
-        nodes[node.pid].component = "Layout";
-        nodes[node.pid].alwaysShow = true;
-        if(!nodes[node.pid].children){
-            nodes[node.pid].children = []
-        }
-        nodes[node.pid].children.push(node)
-    }
-})
-var treeNodes = []
-nodes.each((key, node) => {
-    if(node.pid == '0'){
-        if(node.component != 'Layout'){
-            node = {
-                isShow: 1,
-                component: 'Layout',
-                redirect: node.path,
-                children: [node]
-            }
-        }
-        treeNodes.push(node)
-    }
-})
-
-return treeNodes
+return toTree(menus, '0')

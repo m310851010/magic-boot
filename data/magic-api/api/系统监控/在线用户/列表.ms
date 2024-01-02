@@ -5,7 +5,7 @@
   "groupId" : "d95a58e77d314370862ffc4cdfdb8283",
   "name" : "列表",
   "createTime" : null,
-  "updateTime" : 1692848227765,
+  "updateTime" : 1704212843253,
   "lock" : null,
   "createBy" : null,
   "updateBy" : null,
@@ -120,7 +120,7 @@
 ================================
 import cn.dev33.satoken.stp.StpUtil
 var tokens = StpUtil.searchTokenValue("", 0, -1, true).map(it => it.replace('token:login:token:', ''))
-return db.page("""
+ db.page("""
     select 
         su.id,
         su.username,
@@ -131,9 +131,15 @@ return db.page("""
         sll.browser,
         sll.os,
         sll.create_date
-    from sys_login_log sll left join sys_user su on sll.username = su.username left join sys_office so on su.office_id = so.id
+    from sys_login_log sll
+    left join sys_user su on sll.username = su.username
+    left join sys_office so on su.office_id = so.id
     where sll.token in (#{tokens})
-    ?{username, and su.username like concat('%', #{username}, '%')}
-    ?{ip, and sll.ip like concat('%', #{ip}, '%')}
+    ?{body?.username, and su.username like concat('%', #{body.username}, '%')}
+    ?{body?.ip, and sll.ip like concat('%', #{body.ip}, '%')}
+    ?{body?.createDate && body.createDate.start, and sll.create_date >= #{body.createDate.start}}
+    ?{body?.createDate && body.createDate.end, and sll.create_date <= #{body.createDate.end}}
     order by sll.create_date desc
 """)
+
+return {list: [{id: 'xx'}, {id: 'yy'}], total: 100}

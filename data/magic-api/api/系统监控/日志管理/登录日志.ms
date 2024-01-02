@@ -5,7 +5,7 @@
   "groupId" : "9ec6f9ec92d24a369952bb13eddc134f",
   "name" : "登录日志",
   "createTime" : null,
-  "updateTime" : 1646552463034,
+  "updateTime" : 1704212764302,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -251,8 +251,12 @@
 }
 ================================
 return db.page("""
-    select * from sys_login_log where 1=1
-    ?{createDate && createDate.split(',')[0], and create_date >= #{createDate.split(',')[0]}}
-    ?{createDate && createDate.split(',')[1], and create_date <= #{createDate.split(',')[1]}}
+    select username, fail_password, type, browser, os, address, ip,  create_date from sys_login_log
+    where 1=1
+    ?{body?.ip, and ip like concat('%', #{body.ip}, '%')}
+    ?{body?.username, and username like concat('%', #{body.username}, '%')}
+    ?{body?.type, and type = #{body.type}
+    ?{body?.createDate && body.createDate.start, and create_date >= #{body.createDate.start}}
+    ?{body?.createDate && body.createDate.end, and create_date <= #{body.createDate.end}}
     order by create_date desc
 """)

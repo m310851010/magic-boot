@@ -5,7 +5,7 @@
   "groupId" : "67b2ce258e24491194b74992958c74aa",
   "name" : "保存",
   "createTime" : null,
-  "updateTime" : 1703682158339,
+  "updateTime" : 1704206639143,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -84,7 +84,6 @@ var menu = {
     frame: body.frame,
     openMode: body.openMode
 }
-
 
 var result = db.table("sys_menu").primary("id").withBlank().saveOrUpdate(menu);
 
