@@ -5,7 +5,7 @@
   "groupId" : "d95a58e77d314370862ffc4cdfdb8283",
   "name" : "列表",
   "createTime" : null,
-  "updateTime" : 1704212843253,
+  "updateTime" : 1704263883806,
   "lock" : null,
   "createBy" : null,
   "updateBy" : null,
@@ -28,7 +28,7 @@
   "requestBody" : "",
   "headers" : [ ],
   "paths" : [ ],
-  "responseBody" : "{\n    \"code\": 200,\n    \"message\": \"success\",\n    \"data\": [\n        \"0bde782e-fb15-4aaa-9795-406f644a513d\",\n        \"08d818e1-62bb-426e-9eba-c88458c40e55\"\n    ],\n    \"timestamp\": 1692848223759,\n    \"executeTime\": 10\n}",
+  "responseBody" : "{\n    \"code\": 200,\n    \"data\": [\n        \"Authorization:login:token:Db_JDV36vLAEih1t0_89NvzzRcSkuY4nMp__\",\n        \"Authorization:login:token:RL_Oe3pgMK22awLTp_vuuLGhwjThSlc6be__\",\n        \"Authorization:login:token:sH_0norql39RHiznH_Pqs5Ll04hqPTosB2__\"\n    ],\n    \"message\": \"success\"\n}",
   "description" : null,
   "requestBodyDefinition" : null,
   "responseBodyDefinition" : {
@@ -119,14 +119,13 @@
 }
 ================================
 import cn.dev33.satoken.stp.StpUtil
-var tokens = StpUtil.searchTokenValue("", 0, -1, true).map(it => it.replace('token:login:token:', ''))
- db.page("""
+var tokens = StpUtil.searchTokenValue("", 0, -1, true).map(it => it.replace('Authorization:login:token:', ''))
+return db.page("""
     select 
         su.id,
         su.username,
         so.name office_name,
         sll.address,
-        sll.token,
         sll.ip,
         sll.browser,
         sll.os,
@@ -142,4 +141,3 @@ var tokens = StpUtil.searchTokenValue("", 0, -1, true).map(it => it.replace('tok
     order by sll.create_date desc
 """)
 
-return {list: [{id: 'xx'}, {id: 'yy'}], total: 100}

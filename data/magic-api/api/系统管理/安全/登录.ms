@@ -5,7 +5,7 @@
   "groupId" : "1952f25c81084e24b55b11385767dc38",
   "name" : "登录",
   "createTime" : null,
-  "updateTime" : 1702399070285,
+  "updateTime" : 1704271462220,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -188,6 +188,8 @@ import cn.hutool.http.useragent.UserAgentUtil
 import cn.hutool.http.useragent.UserAgent
 import cn.hutool.crypto.SmUtil
 import java.nio.charset.StandardCharsets
+import cn.hutool.core.date.DateUtil
+import cn.hutool.core.date.BetweenFormatter
 
 UserAgent ua = UserAgentUtil.parse(request.getHeaders("User-Agent")[0])
 if(configure('verification-code.enable') == 'true'){
@@ -206,7 +208,7 @@ if(!body.password){
     exit 0, '请输入密码'
 }
 
-var user = db.table("sys_user").where().eq("username",body.username).eq('is_del', 0).selectOne()
+var user = db.table("sys_user").where().eq("username", body.username).eq('is_del', 0).selectOne()
 
 var loginLog = {
     username: body.username,
@@ -224,13 +226,18 @@ if(!user || SmUtil.sm3WithSalt(user.salt.getBytes()).digestHex(body.password) !=
     exit 0,'用户名或密码错误'
 }
 
-if(user.isLogin == '1'){
-    exit 0, '此账号禁止登录'
-}
+assert user.isLogin == 0 : 0, '此账号已被封禁，请联系管理员'
+
+var time = StpUtil.getDisableTime(user.id);
+println('时间==' + time)
+assert time != -1 : 0, '此账号已被永久禁止登录，请联系管理员'
+
+assert !StpUtil.isDisable(user.id) : 0, `此账号已被封禁，解封时间剩余：${DateUtil.formatBetween(time * 1000, BetweenFormatter.Level.SECOND)}`
+
 
 StpUtil.login(user.id)
 var token = StpUtil.getTokenValueByLoginId(user.id)
 loginLog.token = token
 db.table("sys_login_log").primary("id", nextId()).save(loginLog);
 CodeCacheMap.remove(body.uuid)
-return StpUtil.getTokenValueByLoginId(user.id)
+return token
