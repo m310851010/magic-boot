@@ -35,4 +35,4 @@
 }
 ================================
 import cn.dev33.satoken.stp.StpUtil
-return db.table("sys_user").column("isLogin", isLogin).where().eq("id",id).ne("id", StpUtil.getLoginId()).update()
+return db.table("sys_user").column("status", status).where().eq("id",id).ne("id", StpUtil.getLoginId()).update()

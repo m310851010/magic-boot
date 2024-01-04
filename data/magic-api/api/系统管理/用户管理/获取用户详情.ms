@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "获取用户详情",
   "createTime" : null,
-  "updateTime" : 1704362432040,
+  "updateTime" : 1704372581045,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -114,10 +114,13 @@ var user = db.selectOne("""
         distinct su.id,
         su.username,
         su.name,
+        su.nick_name,
+        su.sex,
         su.phone,
+        su.email,
         su.create_date,
         su.office_id,
-        su.head_portrait,
+        su.avatar,
         so.name office_name
     from sys_user su
     left join sys_office so on su.office_id = so.id

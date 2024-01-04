@@ -46,7 +46,7 @@
                 sex: {
                     label: '性别'
                 },
-                headPortrait: {
+                avatar: {
                     label: '头像'
                 },
                 remarks: {
@@ -64,7 +64,7 @@
                     dictType: 'sex'
                 },
                 {
-                    field: 'headPortrait',
+                    field: 'avatar',
                     label: '头像',
                     type: 'image'
                 },
@@ -135,7 +135,7 @@
                     }
                 },{
                     span: 12,
-                    name: 'headPortrait',
+                    name: 'avatar',
                     label: '头像',
                     component: 'upload-image',
                     rules: [{ required: true, message: '请选择头像', trigger: 'change' }]

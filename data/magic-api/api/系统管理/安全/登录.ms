@@ -226,7 +226,7 @@ if(!user || SmUtil.sm3WithSalt(user.salt.getBytes()).digestHex(body.password) !=
     exit 0,'用户名或密码错误'
 }
 
-assert user.isLogin == 0 : 0, '此账号已被封禁，请联系管理员'
+assert user.status == 0 : 0, '此账号已被封禁，请联系管理员'
 
 var time = StpUtil.getDisableTime(user.id);
 println('时间==' + time)

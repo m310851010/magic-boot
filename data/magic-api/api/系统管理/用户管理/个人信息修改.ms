@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "个人信息修改",
   "createTime" : null,
-  "updateTime" : 1704364825412,
+  "updateTime" : 1704372740231,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -29,7 +29,10 @@ var id = body.id;
 var user = {
     id,
     name: body.name,
-    phone: body.phone
+    phone: body.phone,
+    email: body.email,
+    sex: body.sex,
+    nickName: body.nickName,
 }
 
 var id = db.table("sys_user").primary("id").update(user)

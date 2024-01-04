@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "获取用户信息",
   "createTime" : null,
-  "updateTime" : 1648431786861,
+  "updateTime" : 1704373534310,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -109,6 +109,8 @@
 import 'cn.dev33.satoken.stp.StpUtil';
 import "@post:/system/security/permissions" as authoritiesList; 
 
-var user = db.table("sys_user").columns('id', 'username', 'name', 'status', 'phone', 'head_portrait', 'office_id').where().eq("id",StpUtil.getLoginId()).selectOne()
+var user = db.table("sys_user")
+.columns('id', 'username', 'name', 'status', 'phone', 'avatar', 'office_id', 'nick_name', 'sex', 'email')
+.where().eq("id",StpUtil.getLoginId()).selectOne()
 user.authorities = authoritiesList()
 return user

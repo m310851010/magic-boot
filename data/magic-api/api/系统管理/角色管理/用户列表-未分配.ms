@@ -41,10 +41,10 @@ return db.page("""
         distinct su.id,
         su.username,
         su.name,
-        su.is_login,
+        su.status,
         su.phone,
         su.create_date,
-        su.head_portrait,
+        su.avatar,
         so.name office_name
     from sys_user su
     LEFT JOIN sys_user_role sur on su.id = sur.user_id

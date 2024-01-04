@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "修改用户",
   "createTime" : null,
-  "updateTime" : 1704112184856,
+  "updateTime" : 1704372678857,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -48,8 +48,11 @@ var user = {
     id,
     name: body.name,
     phone: body.phone,
+    email: body.email,
+    sex: body.sex,
+    nickName: body.nickName,
     officeId: body.officeId,
-    isLogin: body.isLogin
+    status: body.status
 }
 
 db.table('sys_user_role').where().eq('user_id', id).delete();

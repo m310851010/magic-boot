@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "列表",
   "createTime" : null,
-  "updateTime" : 1703686820617,
+  "updateTime" : 1704373571992,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -125,11 +125,14 @@ var page = db.page("""
         distinct su.id,
         su.username,
         su.name,
-        su.is_login,
+        su.nick_name,
+        su.sex,
         su.phone,
+        su.email,
+        su.status,
         su.create_date,
         su.office_id,
-        su.head_portrait,
+        su.avatar,
         so.name office_name
     from sys_user su
     left join sys_office so on su.office_id = so.id
@@ -139,7 +142,7 @@ var page = db.page("""
     ?{body?.roles, and sur.role_id in(#{body.roles})}
     ?{body?.username, and su.username like concat('%',#{body.username},'%')}
     ?{body?.name, and su.name like concat('%',#{body.name},'%')}
-    ?{body?.isLogin, and su.is_login = #{body.isLogin}}
+    ?{body?.status, and su.status = #{body.status}}
     ?{body?.phone, and su.phone like concat('%',#{body.phone},'%')}
     order by ${body?.orderBy || 'su.create_date desc'}
 """)
