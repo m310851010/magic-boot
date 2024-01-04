@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "个人信息修改",
   "createTime" : null,
-  "updateTime" : 1703864132122,
+  "updateTime" : 1704364825412,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -22,14 +22,8 @@
   "responseBodyDefinition" : null
 }
 ================================
-import cn.dev33.satoken.secure.SaSecureUtil;
-import org.ssssssss.magicapi.modules.db.cache.SqlCache
-import cn.hutool.crypto.SmUtil
-import cn.hutool.core.util.RandomUtil;
-import env;
 
-assert body.id : 0, '用户id不能为空'
-assert body.id != '1' : 0, '超级管理员不能修改'
+assert body?.id : 0, '用户id不能为空'
 
 var id = body.id;
 var user = {
@@ -38,13 +32,6 @@ var user = {
     phone: body.phone
 }
 
-SqlCache.delete(`permissions:${id}`)
-db.table('sys_user_role').where().eq('user_id', id).delete();
-
-var id = db.table("sys_user").primary("id").saveOrUpdate(user)
-if (body.roles){
-    var list = body.roles.map(role_id => ({ user_id : id, role_id }))
-    db.table('sys_user_role').batchInsert(list)
-}
+var id = db.table("sys_user").primary("id").update(user)
 
 return true;
