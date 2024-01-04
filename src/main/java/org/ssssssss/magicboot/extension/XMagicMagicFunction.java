@@ -26,7 +26,7 @@ public class XMagicMagicFunction implements MagicFunction {
 
 
     @Function
-    @Comment("获取Java虚拟机的开始运行时间")
+    @Comment("获取Java虚拟机的启动时间")
     public static long getJavaVMStartTime() {
         return ManagementFactory.getRuntimeMXBean().getStartTime();
     }
