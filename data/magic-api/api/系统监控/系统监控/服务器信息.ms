@@ -5,7 +5,7 @@
   "groupId" : "04d038253686473686a550caa1469ee6",
   "name" : "服务器信息",
   "createTime" : null,
-  "updateTime" : 1704417383837,
+  "updateTime" : 1704427316961,
   "lock" : null,
   "createBy" : null,
   "updateBy" : null,
@@ -75,11 +75,11 @@ var ioWait = ticks[TickType.IOWAIT.index] - prevTicks[TickType.IOWAIT.index];
 var idle = ticks[TickType.IDLE.index] -  prevTicks[TickType.IDLE.index];
 var totalCpu = user + nice + sys + idle + ioWait + irq + softIrq + steal;
 
-cpuInfo.sysUseRate = NumberUtil.div(NumberUtil.mul(sys, 100), totalCpu, 2) + "%"
-cpuInfo.userUseRate = NumberUtil.div(NumberUtil.mul(user, 100), totalCpu, 2) + "%"
+cpuInfo.sysUseRate = NumberUtil.div(NumberUtil.mul(sys, 100), totalCpu, 2)
+cpuInfo.userUseRate = NumberUtil.div(NumberUtil.mul(user, 100), totalCpu, 2)
 cpuInfo.totalUseRate = NumberUtil.div(NumberUtil.mul(NumberUtil.add(sys, user), 100), totalCpu, 2)
-cpuInfo.waitRate = NumberUtil.div(NumberUtil.mul(ioWait, 100), totalCpu, 2) + "%"
-cpuInfo.freeRate = NumberUtil.div(NumberUtil.mul(idle, 100), totalCpu, 2) + "%"
+cpuInfo.waitRate = NumberUtil.div(NumberUtil.mul(ioWait, 100), totalCpu, 2) 
+cpuInfo.freeRate = NumberUtil.div(NumberUtil.mul(idle, 100), totalCpu, 2)
 
 // 内存信息
 var memory = hal.getMemory();
@@ -107,7 +107,7 @@ for (item in si.operatingSystem.fileSystem.fileStores) {
 
  var storageInfo = { 
      total: FileUtil.readableFileSize(storageTotal),
-     useed: FileUtil.readableFileSize(storageUsed),
+     used: FileUtil.readableFileSize(storageUsed),
      free: FileUtil.readableFileSize(storageFree),
      useRate: NumberUtil.mul(NumberUtil.div(storageUsed, storageTotal, 4), 100)
 };
