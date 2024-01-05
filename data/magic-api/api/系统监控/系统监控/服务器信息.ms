@@ -5,7 +5,7 @@
   "groupId" : "04d038253686473686a550caa1469ee6",
   "name" : "服务器信息",
   "createTime" : null,
-  "updateTime" : 1704386982110,
+  "updateTime" : 1704417383837,
   "lock" : null,
   "createBy" : null,
   "updateBy" : null,
@@ -45,6 +45,7 @@ import 'cn.hutool.core.date.DateUtil';
 import 'java.math.BigDecimal';
 import 'java.lang.management.ManagementFactory';
 import 'cn.hutool.core.date.BetweenFormatter';
+import 'org.ssssssss.magicboot.utils.RuntimeUtils';
 
 
 var si = new SystemInfo()
@@ -82,13 +83,15 @@ cpuInfo.freeRate = NumberUtil.div(NumberUtil.mul(idle, 100), totalCpu, 2) + "%"
 
 // 内存信息
 var memory = hal.getMemory();
-var used = memory.total - memory.available;
+var menmTotal = memory.getTotal();
+var memAvailable = memory.getAvailable();
+var used = menmTotal - memAvailable;
 
 var memoryInfo = {
-    total: FileUtil.readableFileSize(memory.total),
+    total: FileUtil.readableFileSize(menmTotal),
     used: FileUtil.readableFileSize(used),
-    free: FileUtil.readableFileSize(memory.available),
-    useRate: NumberUtil.mul(NumberUtil.div(used, memory.total, 4), 100)
+    free: FileUtil.readableFileSize(memAvailable),
+    useRate: NumberUtil.mul(NumberUtil.div(used, menmTotal, 4), 100)
 }
 
  // 存储信息
@@ -125,7 +128,7 @@ var vmInfo = SystemUtil.jvmInfo
 var totalMemory = runtimeInfo.totalMemory
 var jvmMemoryUsed = NumberUtil.sub(new BigDecimal(totalMemory), new BigDecimal(runtimeInfo.freeMemory)).longValue();
 var javaRuntimeInfo = SystemUtil.javaRuntimeInfo;
-var startTime = new Date(getJavaVMStartTime()); 
+var startTime = new Date(RuntimeUtils.getJavaVMStartTime()); 
 
 var jvmInfo = {
     name: vmInfo.name,

@@ -5,7 +5,7 @@
   "groupId" : "9ec6f9ec92d24a369952bb13eddc134f",
   "name" : "登录日志",
   "createTime" : null,
-  "updateTime" : 1704212764302,
+  "updateTime" : 1704416309117,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,

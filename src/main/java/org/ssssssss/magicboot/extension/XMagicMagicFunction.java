@@ -6,8 +6,6 @@ import org.ssssssss.magicapi.core.config.MagicFunction;
 import org.ssssssss.script.annotation.Comment;
 import org.ssssssss.script.annotation.Function;
 
-import java.lang.management.ManagementFactory;
-
 /**
  * 扩展函数
  */
@@ -22,12 +20,5 @@ public class XMagicMagicFunction implements MagicFunction {
     @Comment("使用Snowflake生成ID")
     public static long nextId() {
         return snowflake.nextId();
-    }
-
-
-    @Function
-    @Comment("获取Java虚拟机的启动时间")
-    public static long getJavaVMStartTime() {
-        return ManagementFactory.getRuntimeMXBean().getStartTime();
     }
 }
