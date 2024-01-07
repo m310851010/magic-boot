@@ -5,7 +5,7 @@
   "groupId" : "fd3d225a1cf141bf9998c4ec4bf4a6ab",
   "name" : "删除",
   "createTime" : null,
-  "updateTime" : 1646553118780,
+  "updateTime" : 1704644356008,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -22,14 +22,20 @@
   "responseBodyDefinition" : null
 }
 ================================
-import java.net.URLDecoder
 import org.ssssssss.magicboot.model.Global
-import org.ssssssss.magicboot.utils.FileUtils
 import cn.hutool.core.io.FileUtil;
 
-url = URLDecoder.decode(url, "UTF-8");
+assert url : 0, '参数错误'
+assert bizId : 0, '参数错误'
+assert bizType : 0, '参数错误'
 
-db.table("sys_file").where().eq("url",url).delete()
+println('url==' + url)
+println('bizId==' + bizId)
+println('bizType==' + bizType)
+var row = db.table("sys_file").where().eq("url",url).eq("biz_id", bizId).eq("biz_type", bizType).delete()
+if (row > 0){
+    FileUtil.del(Global.getUserFilesBaseDir() + url);
+}
 
-String realPath = Global.getUserFilesBaseDir() + "/" + url;
-FileUtil.del(realPath);
+return !row;
+

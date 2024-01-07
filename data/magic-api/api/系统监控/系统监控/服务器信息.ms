@@ -5,7 +5,7 @@
   "groupId" : "04d038253686473686a550caa1469ee6",
   "name" : "服务器信息",
   "createTime" : null,
-  "updateTime" : 1704427316961,
+  "updateTime" : 1704533177630,
   "lock" : null,
   "createBy" : null,
   "updateBy" : null,
@@ -34,18 +34,18 @@
   "responseBodyDefinition" : null
 }
 ================================
-import 'oshi.SystemInfo'
-import 'oshi.util.Util'
-import 'oshi.hardware.CentralProcessor'
-import 'cn.hutool.core.io.FileUtil'
-import 'cn.hutool.core.util.NumberUtil';
-import 'cn.hutool.system.SystemUtil';
-import 'cn.hutool.core.net.NetUtil';
-import 'cn.hutool.core.date.DateUtil';
-import 'java.math.BigDecimal';
-import 'java.lang.management.ManagementFactory';
-import 'cn.hutool.core.date.BetweenFormatter';
-import 'org.ssssssss.magicboot.utils.RuntimeUtils';
+import oshi.SystemInfo
+import oshi.util.Util
+import oshi.hardware.CentralProcessor
+import cn.hutool.core.io.FileUtil
+import cn.hutool.core.util.NumberUtil;
+import cn.hutool.system.SystemUtil;
+import cn.hutool.core.net.NetUtil;
+import cn.hutool.core.date.DateUtil;
+import java.math.BigDecimal;
+import java.lang.management.ManagementFactory;
+import cn.hutool.core.date.BetweenFormatter;
+import org.ssssssss.magicboot.utils.RuntimeUtils;
 
 
 var si = new SystemInfo()
