@@ -114,6 +114,11 @@
 		<!-- 资源目录 -->
 		<resources>
 			<resource>
+				<directory>src/main/resources</directory>
+				<targetPath>${build.outputDirectory}</targetPath>
+			</resource>
+
+			<resource>
 				<directory>data</directory>
 				<targetPath>${build.outputDirectory}/data</targetPath>
 			</resource>
