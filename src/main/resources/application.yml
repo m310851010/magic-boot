@@ -62,7 +62,7 @@ spring:
         exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
 # 上传路径
 upload:
-  dir: /home/tomcat/statics/
+  dir: /home/statics/
 
 # id生成器
 snowflake:
@@ -79,7 +79,7 @@ magic-api:
   resource:
     location: data/magic-api
   backup: #备份相关配置
-    enable: true #是否启用
+    enable: false #是否启用
     max-history: -1 #备份保留天数，-1为永久保留
     table-name: magic_backup_record_v2 #使用数据库存储备份时的表名
   page:
