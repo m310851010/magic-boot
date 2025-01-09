@@ -11,7 +11,7 @@
  Target Server Version : 80100
  File Encoding         : 65001
 
- Date: 15/07/2024 23:27:17
+ Date: 09/01/2025 21:21:39
 */
 
 SET NAMES utf8mb4;
@@ -74,7 +74,7 @@ CREATE TABLE `sys_dict`  (
   `value` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '值',
   `sort` int NOT NULL DEFAULT 0 COMMENT '排序',
   `dict_type` int NULL DEFAULT NULL COMMENT '字典类型：0系统类，1业务类',
-  `data_type` int NULL DEFAULT 0 COMMENT '数据类型,0:string 1: number',
+  `data_type` int NULL DEFAULT 0 COMMENT '数据类型,0:string 1: number 2:boolean 3:date',
   `status` int NULL DEFAULT 0 COMMENT '状态 0: 正常 1: 停用',
   `is_del` int NULL DEFAULT 0 COMMENT '删除标识：0未删除，1已删除',
   `ext_json` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '扩展JSON数据',
@@ -125,8 +125,8 @@ INSERT INTO `sys_dict` VALUES ('33', '3', '本部门数据权限', '3', 2, 0, NU
 INSERT INTO `sys_dict` VALUES ('34', '3', '本部门及以下数据权限', '2', 3, 0, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `sys_dict` VALUES ('35', '3', '仅本人数据权限', '4', 4, 0, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `sys_dict` VALUES ('4', '0', '组织机构类型', 'OFFICE_TYPE', 0, 0, 1, 0, 0, NULL, '', '1', '2021-04-22 21:30:30', '1', '2023-12-13 00:26:34');
-INSERT INTO `sys_dict` VALUES ('41', '4', '公司', '1', 0, 0, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_dict` VALUES ('42', '4', '部门', '2', 0, 0, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sys_dict` VALUES ('41', '4', '公司', '1', 1, 0, NULL, 0, 0, NULL, NULL, NULL, NULL, '1', '2025-01-08 21:51:47');
+INSERT INTO `sys_dict` VALUES ('42', '4', '部门', '2', 2, 0, NULL, 0, 0, NULL, NULL, NULL, NULL, '1', '2025-01-08 21:51:39');
 INSERT INTO `sys_dict` VALUES ('ae9a2cd400264ff6bdc2f00b62d6e911', '0', '字典类型', 'DICT_TYPE', 9, 0, 1, 0, 0, NULL, '', NULL, NULL, '1', '2024-01-02 19:40:31');
 INSERT INTO `sys_dict` VALUES ('ae9a2cd400264ff6bdc2f00b62d6e941', '0', '是否登录', 'IS_LOGIN', 0, 0, 0, 0, 0, NULL, '', NULL, NULL, '1', '2021-04-30 22:14:58');
 
@@ -213,19 +213,6 @@ CREATE TABLE `sys_login_log`  (
 -- ----------------------------
 -- Records of sys_login_log
 -- ----------------------------
-INSERT INTO `sys_login_log` VALUES ('1744347608316514304', 'admin', NULL, '成功', 'MSEdge', 'Windows 10 or Windows Server 2016', '内网IP', '0:0:0:0:0:0:0:1', 'K0_fZ7EEFWcpf3szT_mG1I97fmWdZLkAVu__', '2024-01-08 21:17:33');
-INSERT INTO `sys_login_log` VALUES ('1745104298351661056', 'admin', NULL, '成功', 'MSEdge', 'Windows 10 or Windows Server 2016', '内网IP', '0:0:0:0:0:0:0:1', 'pH_CWZj16zuRoHa9T_l2bvPAQfuTfAtdjb__', '2024-01-10 23:24:22');
-INSERT INTO `sys_login_log` VALUES ('1745108645579984896', 'admin', NULL, '成功', 'MSEdge', 'Windows 10 or Windows Server 2016', '内网IP', '0:0:0:0:0:0:0:1', 'UX_4KqQGBPYHHJhL3_JODTB4TJdgYUrACL__', '2024-01-10 23:41:38');
-INSERT INTO `sys_login_log` VALUES ('1745109817653071872', 'admin', NULL, '成功', 'MSEdge', 'Windows 10 or Windows Server 2016', '内网IP', '0:0:0:0:0:0:0:1', 't0_KFRm9PiOz5OlJy_C0XgTad9ldEDdoqb__', '2024-01-10 23:46:17');
-INSERT INTO `sys_login_log` VALUES ('1745109822161948672', 'admin', NULL, '成功', 'Firefox', 'Windows 10 or Windows Server 2016', '内网IP', '127.0.0.1', '9Y_HDbGmU7ftkzDWo_6eItC6jDcBwKlscG__', '2024-01-10 23:46:18');
-INSERT INTO `sys_login_log` VALUES ('1745112975812988928', 'admin', NULL, '成功', 'MSEdge', 'Windows 10 or Windows Server 2016', '内网IP', '0:0:0:0:0:0:0:1', '7t_4cPrwBQNTYeqbt_QvJnCHAgd4njI1mS__', '2024-01-10 23:58:50');
-INSERT INTO `sys_login_log` VALUES ('1745118837164085248', 'admin', NULL, '成功', 'MSEdge', 'Windows 10 or Windows Server 2016', '内网IP', '0:0:0:0:0:0:0:1', 'QL_evxIKIBHVNoaZ3_9wx2pbPpwUUQM6WA__', '2024-01-11 00:22:08');
-INSERT INTO `sys_login_log` VALUES ('1745448722566877184', 'admin', NULL, '成功', 'MSEdge', 'Windows 10 or Windows Server 2016', '内网IP', '0:0:0:0:0:0:0:1', '8B_CgPaSQGzSihrWu_R93RPTMMHofd7GKM__', '2024-01-11 22:12:59');
-INSERT INTO `sys_login_log` VALUES ('1745448722566877185', 'admin', NULL, '成功', 'MSEdge', 'Windows 10 or Windows Server 2016', '内网IP', '0:0:0:0:0:0:0:1', '8B_CgPaSQGzSihrWu_R93RPTMMHofd7GKM__', '2024-01-11 22:12:59');
-INSERT INTO `sys_login_log` VALUES ('1745465534293610496', 'admin', NULL, '成功', 'MSEdge', 'Windows 10 or Windows Server 2016', '内网IP', '0:0:0:0:0:0:0:1', 'W9_EllnS6CcZxOmSZ_SkgPj7oKna3qaYUZ__', '2024-01-11 23:19:47');
-INSERT INTO `sys_login_log` VALUES ('1745473268661489664', 'admin', NULL, '成功', 'Chrome', 'Windows 10 or Windows Server 2016', '内网IP', '0:0:0:0:0:0:0:1', '92_muAupQxVkE5eWt_I2k6vE6EJI6N8wOf__', '2024-01-11 23:50:31');
-INSERT INTO `sys_login_log` VALUES ('1745483256343695360', 'admin', NULL, '成功', 'MSEdge', 'Windows 10 or Windows Server 2016', '内网IP', '0:0:0:0:0:0:0:1', 'pN_hV2634sGM74yDj_IJYK0QOhERPQXw0h__', '2024-01-12 00:30:12');
-INSERT INTO `sys_login_log` VALUES ('1755576381430960128', 'admin', NULL, '成功', 'MSEdge', 'Windows 10 or Windows Server 2016', '内网IP', '0:0:0:0:0:0:0:1', 'W0_CQSSqNjNu0WASb_cMzSfQPYKICf9kcM__', '2024-02-08 20:56:41');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -647,7 +634,7 @@ INSERT INTO `sys_user` VALUES ('1740053730331594752', 'sss', NULL, '3Q66EJTJPQF0
 INSERT INTO `sys_user` VALUES ('1740053795498496000', 'sss', NULL, 'LZUZ0YFB3UHD7IGGCO4H', '3c1052f269659ce5c24296528c3637bff014371d4c283af86481d883aa2b8aee', 0, NULL, NULL, NULL, NULL, NULL, NULL, '4c37a80226134bce8bc91c8fc04a7d2f', NULL, 0, '', NULL, '1', '2023-12-28 00:55:28', NULL, NULL);
 INSERT INTO `sys_user` VALUES ('1740056058929483776', 'sss', 'ss', 'O2GHUKKRSVWD5H4SOOMB', '39cc400b7a287e8b8f520d0999a50a37c7131556cc3026f52cab68339c82c13f', 0, NULL, 0, NULL, NULL, NULL, NULL, '81b5493cdb31477f9ceea85b2cd08f15', NULL, 0, '', NULL, '1', '2023-12-28 01:04:28', '1', '2024-01-05 10:16:47');
 INSERT INTO `sys_user` VALUES ('1740056466313842688', 'ssss', NULL, '8DRY1Z66ARCY2GRUAA2P', 'b6011d6e70a34d6505b0ba7f87d0195a24a0d1fda8af077b0434a2b4a56b8dd5', 0, NULL, NULL, NULL, NULL, NULL, NULL, '4c37a80226134bce8bc91c8fc04a7d2f', NULL, 0, '', NULL, '1', '2023-12-28 01:06:05', NULL, NULL);
-INSERT INTO `sys_user` VALUES ('1741729125258891264', 'tttt', 'ttttttt', '1CRO2KDMMH5AWIO63UHW', '6463b06d19c3891a63524563ec917d4400d32896c7e6dd775c7a4f1952a498d2', 0, NULL, 1, NULL, NULL, NULL, NULL, '4c37a80226134bce8bc91c8fc04a7d2f', NULL, 0, '', NULL, '1', '2024-01-01 15:52:38', '1', '2024-01-05 10:17:23');
+INSERT INTO `sys_user` VALUES ('1741729125258891264', 'tttt', 'ttttttt', '1CRO2KDMMH5AWIO63UHW', '6463b06d19c3891a63524563ec917d4400d32896c7e6dd775c7a4f1952a498d2', 0, NULL, 1, NULL, NULL, NULL, NULL, '4c37a80226134bce8bc91c8fc04a7d2f', NULL, 0, '', NULL, '1', '2024-01-01 15:52:38', '1', '2025-01-08 21:21:11');
 INSERT INTO `sys_user` VALUES ('534a37c366ec47878a6b0c85703d0bc2', 'system', '管理员', 'Z61ZBX91ODNIC3DBOESE', 'f09371e9fc138d09b4f9ae2101ff4be0c38ccf752b0d435100d94d4a93e98198', 0, NULL, NULL, NULL, NULL, NULL, NULL, '4c37a80226134bce8bc91c8fc04a7d2f', NULL, 0, '', NULL, '1', '2022-01-30 19:28:47', '1', '2023-12-28 02:57:53');
 INSERT INTO `sys_user` VALUES ('7217ee3f9d6e49f1a7e327183013226b', 'db', '123123123', 'B3EKUGANANIPZN6Y8LOA', '7452be716319606036b1decf470a479ba20ec4540e77a126f87c0f9c20a05926', 0, NULL, NULL, '13500000000', NULL, NULL, NULL, '4c37a80226134bce8bc91c8fc04a7d2f', NULL, 0, '', NULL, '1', '2022-01-16 17:24:56', '1', '2023-12-29 01:13:14');
 INSERT INTO `sys_user` VALUES ('7e7f4b1017fc4564ad31a05033eb29d1', 'nm', NULL, '8RGT40IZ8DN298RQVJBK', '275b1c7c8eb453f617eddca461c5f9fb40b51dbacc382e1d529c09a7fd571f91', 0, NULL, NULL, NULL, NULL, NULL, NULL, '4c37a80226134bce8bc91c8fc04a7d2f', NULL, 0, '', NULL, '1', '2022-01-16 17:24:29', '1', '2023-12-14 21:00:52');
