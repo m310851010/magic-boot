@@ -74,7 +74,7 @@ var menu = {
     name: body.name,
     pid: body.pid,
     sort: body.sort,
-    '`desc`': body.desc,
+    remark: body.remark,
     isShow: body.isShow,
     menuType: body.menuType,
     icon: body.icon,

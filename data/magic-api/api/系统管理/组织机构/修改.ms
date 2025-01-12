@@ -5,7 +5,7 @@
   "groupId" : "8295fc13678d4144bf7363c465247a50",
   "name" : "修改",
   "createTime" : null,
-  "updateTime" : 1704001037482,
+  "updateTime" : 1736600366819,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -89,4 +89,4 @@ if (row.pid != pid) {
     }
 }
 
-return db.table("sys_office").primary("id").update(office);
+return db.table("sys_office").primary("id").withBlank().update(office);

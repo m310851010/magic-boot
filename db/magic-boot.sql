@@ -11,7 +11,7 @@
  Target Server Version : 80100
  File Encoding         : 65001
 
- Date: 10/01/2025 00:24:01
+ Date: 12/01/2025 19:57:13
 */
 
 SET NAMES utf8mb4;
@@ -78,7 +78,7 @@ CREATE TABLE `sys_dict`  (
   `status` int NULL DEFAULT 0 COMMENT '状态 0: 正常 1: 停用',
   `is_del` int NULL DEFAULT 0 COMMENT '删除标识：0未删除，1已删除',
   `ext_json` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '扩展JSON数据',
-  `desc` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '描述',
+  `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '描述',
   `create_by` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '创建人',
   `create_date` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '更新人',
@@ -90,11 +90,11 @@ CREATE TABLE `sys_dict`  (
 -- Records of sys_dict
 -- ----------------------------
 INSERT INTO `sys_dict` VALUES ('1', '0', '性别', 'SEX', 0, 1, 1, 0, 0, NULL, '', '1', '2022-03-28 21:57:05', '1', '2024-01-04 19:54:54');
-INSERT INTO `sys_dict` VALUES ('10', '1', '男', '1', 0, 0, NULL, 0, 0, NULL, NULL, NULL, NULL, '1', '2025-01-09 23:28:08');
+INSERT INTO `sys_dict` VALUES ('10', '1', '男', '1', 0, 0, NULL, 0, 0, NULL, NULL, NULL, NULL, '1', '2025-01-11 20:56:41');
 INSERT INTO `sys_dict` VALUES ('11', '1', '女', '0', 0, 0, NULL, 0, 0, NULL, NULL, NULL, NULL, '1', '2025-01-09 23:28:24');
 INSERT INTO `sys_dict` VALUES ('1742046021355180032', '4', '111', '111', 22, NULL, 0, 0, 1, NULL, NULL, '1', '2024-01-02 12:51:52', NULL, NULL);
 INSERT INTO `sys_dict` VALUES ('1742052090781503488', 'ae9a2cd400264ff6bdc2f00b62d6e941', '是', '0', 1, NULL, 0, 0, 0, NULL, NULL, '1', '2024-01-02 13:15:59', '1', '2025-01-09 23:28:42');
-INSERT INTO `sys_dict` VALUES ('1742056764452507648', '0', 'test', '是否登录', 1, 0, 4, 1, 0, NULL, NULL, '1', '2024-01-02 13:34:33', '1', '2025-01-10 00:11:41');
+INSERT INTO `sys_dict` VALUES ('1742056764452507648', '0', 'test', '是否登录', 1, 0, 2, 1, 0, NULL, NULL, '1', '2024-01-02 13:34:33', '1', '2025-01-10 22:12:01');
 INSERT INTO `sys_dict` VALUES ('1742056935559139328', '1742056764452507648', 'test', 'test', 1, NULL, 0, 1, 1, NULL, NULL, '1', '2024-01-02 13:35:14', NULL, NULL);
 INSERT INTO `sys_dict` VALUES ('1742118283743727616', 'ae9a2cd400264ff6bdc2f00b62d6e911', '系统', '0', 1, NULL, 1, 0, 0, '{\"clazz\": \"sys-avatar-color\"}', NULL, '1', '2024-01-02 17:39:00', '1', '2025-01-09 23:33:33');
 INSERT INTO `sys_dict` VALUES ('1742118323174379520', 'ae9a2cd400264ff6bdc2f00b62d6e911', '业务', '1', 2, NULL, 1, 0, 0, '{\"clazz\": \"biz-avatar-color\"}', NULL, '1', '2024-01-02 17:39:10', '1', '2025-01-09 23:33:35');
@@ -119,11 +119,11 @@ INSERT INTO `sys_dict` VALUES ('1877350391184756736', '1742148747468607488', '�
 INSERT INTO `sys_dict` VALUES ('1877350606637764608', '1742148747468607488', '时间', '4', 5, NULL, 0, 0, 0, '{\"color\":\"default\"}', NULL, '1', '2025-01-09 21:43:59', NULL, NULL);
 INSERT INTO `sys_dict` VALUES ('1877353767914049536', '0', '测试', 'test', 14, 0, 2, 0, 1, NULL, NULL, '1', '2025-01-09 21:56:32', '1', '2025-01-09 23:35:46');
 INSERT INTO `sys_dict` VALUES ('1877368147389059072', '1877353767914049536', 'test1', '1', 1, NULL, 0, 0, 1, NULL, NULL, '1', '2025-01-09 22:53:41', '1', '2025-01-09 23:42:37');
-INSERT INTO `sys_dict` VALUES ('1877379925669974016', '0', '是否', 'YN', 15, 0, 1, 0, 0, NULL, NULL, '1', '2025-01-09 23:40:29', NULL, NULL);
-INSERT INTO `sys_dict` VALUES ('1877380054724513792', '1877379925669974016', '是', '1', 1, NULL, 0, 0, 0, NULL, NULL, '1', '2025-01-09 23:41:00', NULL, NULL);
-INSERT INTO `sys_dict` VALUES ('1877380097338642432', '1877379925669974016', '否', '0', 2, NULL, 0, 0, 0, NULL, NULL, '1', '2025-01-09 23:41:10', NULL, NULL);
-INSERT INTO `sys_dict` VALUES ('1877382078333587456', '1742056764452507648', '人', '04:23:58', 1, NULL, 0, 0, 0, NULL, NULL, '1', '2025-01-09 23:49:02', '1', '2025-01-10 00:19:10');
-INSERT INTO `sys_dict` VALUES ('1877383909113729024', '1742056764452507648', '方法', '19:05:05', 1, NULL, 0, 0, 0, NULL, NULL, '1', '2025-01-09 23:56:19', '1', '2025-01-10 00:23:21');
+INSERT INTO `sys_dict` VALUES ('1877379925669974016', '0', '是否', 'YN', 15, 0, 2, 0, 0, NULL, NULL, '1', '2025-01-09 23:40:29', '1', '2025-01-10 21:42:26');
+INSERT INTO `sys_dict` VALUES ('1877380054724513792', '1877379925669974016', '是', '1', 1, NULL, 0, 0, 0, '{\"color\":\"success\"}', NULL, '1', '2025-01-09 23:41:00', '1', '2025-01-10 22:03:13');
+INSERT INTO `sys_dict` VALUES ('1877380097338642432', '1877379925669974016', '否', '0', 2, NULL, 0, 0, 0, '{\"color\":\"error\"}', NULL, '1', '2025-01-09 23:41:10', '1', '2025-01-10 22:03:06');
+INSERT INTO `sys_dict` VALUES ('1877382078333587456', '1742056764452507648', '人', '1', 1, NULL, 0, 0, 0, NULL, NULL, '1', '2025-01-09 23:49:02', '1', '2025-01-10 21:24:59');
+INSERT INTO `sys_dict` VALUES ('1877383909113729024', '1742056764452507648', '方法', '0', 1, NULL, 0, 0, 0, NULL, NULL, '1', '2025-01-09 23:56:19', '1', '2025-01-10 21:25:02');
 INSERT INTO `sys_dict` VALUES ('2', '0', '菜单类型', 'MENU_TYPE', 1, 0, 0, 0, 0, NULL, NULL, NULL, NULL, '1', '2024-01-02 20:33:28');
 INSERT INTO `sys_dict` VALUES ('20', '2', '目录', 'D', 0, 0, NULL, 0, 0, '{\"color\":\"blue\"}', NULL, NULL, NULL, '1', '2025-01-09 23:28:56');
 INSERT INTO `sys_dict` VALUES ('21', '2', '菜单', 'M', 1, 0, NULL, 0, 0, '{\"color\":\"cyan\"}', NULL, NULL, NULL, '1', '2025-01-09 23:28:58');
@@ -201,7 +201,7 @@ CREATE TABLE `sys_menu`  (
   `pid` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '父id',
   `icon` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '图标',
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '菜单名称',
-  `desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '描述',
+  `remark` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '描述',
   `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '菜单链接',
   `permission` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '权限码',
   `menu_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '菜单类型,M:菜单 B:按钮 D:目录',
@@ -349,7 +349,7 @@ INSERT INTO `sys_office` VALUES ('1741306238710452224', 'aaabbb', 2, '0102', '17
 INSERT INTO `sys_office` VALUES ('1741306291890032640', 'aaaccc', 2, '0104', '1741306141436153856', 0, NULL, NULL, NULL, 20, NULL, 1, '1', '2023-12-31 11:52:27', NULL, NULL);
 INSERT INTO `sys_office` VALUES ('1741306323766743040', 'ccc', 2, '0101', '1741306141436153856', 0, NULL, NULL, NULL, 30, NULL, 1, '1', '2023-12-31 11:52:34', NULL, NULL);
 INSERT INTO `sys_office` VALUES ('1741324485124034560', 'ttt', 2, '010100', '1741306323766743040', 0, 'tttttt', NULL, NULL, 30, NULL, 1, '1', '2023-12-31 13:04:44', NULL, NULL);
-INSERT INTO `sys_office` VALUES ('31b365008f994e93850186126fce87cb', '东北分公司', 2, '0002', '4c37a80226134bce8bc91c8fc04a7d2f', 0, 'mdc', NULL, 'mdc@mdc.mdc', 20, NULL, 0, '1', '2022-01-09 22:12:11', '1', '2022-03-05 17:17:29');
+INSERT INTO `sys_office` VALUES ('31b365008f994e93850186126fce87cb', '东北分公司', 2, '0002', '4c37a80226134bce8bc91c8fc04a7d2f', 0, NULL, NULL, 'mdc@mdc.mdc', 20, NULL, 0, '1', '2022-01-09 22:12:11', '1', '2022-03-05 17:17:29');
 INSERT INTO `sys_office` VALUES ('4c37a80226134bce8bc91c8fc04a7d2f', '总公司', 2, '00', '0', 0, 'mdc', NULL, NULL, 10, NULL, 0, '1', '2022-01-09 21:59:34', '1', '2022-02-05 11:26:01');
 INSERT INTO `sys_office` VALUES ('81b5493cdb31477f9ceea85b2cd08f15', '内蒙分公司', 2, '0000', '4c37a80226134bce8bc91c8fc04a7d2f', 0, NULL, NULL, NULL, 10, NULL, 0, '1', '2022-01-09 21:59:47', '1', '2022-03-05 17:17:34');
 INSERT INTO `sys_office` VALUES ('a8b62a271c2a4492bd5c0653cac8f33d', '扎兰屯办事处', 2, '000000', '81b5493cdb31477f9ceea85b2cd08f15', 0, NULL, NULL, NULL, 10, NULL, 0, '1', '2022-01-16 13:15:46', '1', '2022-03-05 17:17:26');
@@ -405,7 +405,7 @@ CREATE TABLE `sys_role`  (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '角色名称',
   `permission` int NULL DEFAULT NULL COMMENT '0：全部数据，1：自定义数据，2：本部门及以下数据，3：本部门数据, 4仅个人数据',
   `sort` int NULL DEFAULT NULL COMMENT '排序',
-  `desc` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '描述',
+  `remark` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '描述',
   `ext_json` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '扩展信息',
   `is_del` int NULL DEFAULT 0 COMMENT '是否删除：0未删除，1已删除',
   `create_by` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '创建人',
@@ -421,7 +421,7 @@ CREATE TABLE `sys_role`  (
 INSERT INTO `sys_role` VALUES ('1', NULL, '管理员', 0, NULL, '管理员', NULL, 0, NULL, NULL, '1', '2023-04-02 20:53:45');
 INSERT INTO `sys_role` VALUES ('1739546159007010816', NULL, '测试2', NULL, NULL, NULL, NULL, 0, '1', '2023-12-26 15:18:18', NULL, NULL);
 INSERT INTO `sys_role` VALUES ('1739546175440293888', NULL, '得到的', NULL, NULL, NULL, NULL, 0, '1', '2023-12-26 15:18:22', NULL, NULL);
-INSERT INTO `sys_role` VALUES ('1739546196671860736', NULL, '点点滴滴', NULL, NULL, NULL, NULL, 0, '1', '2023-12-26 15:18:27', '1', '2024-01-03 19:10:16');
+INSERT INTO `sys_role` VALUES ('1739546196671860736', NULL, '点点滴滴', NULL, NULL, '', NULL, 0, '1', '2023-12-26 15:18:27', '1', '2025-01-11 20:56:56');
 INSERT INTO `sys_role` VALUES ('1739546261423525888', NULL, '点点滴滴2', NULL, NULL, NULL, NULL, 1, '1', '2023-12-26 15:18:43', '1', '2023-12-28 01:36:20');
 INSERT INTO `sys_role` VALUES ('1739546388225724416', NULL, 'ffff', 1, NULL, 'sss', NULL, 1, '1', '2023-12-26 15:19:13', NULL, NULL);
 INSERT INTO `sys_role` VALUES ('1739692348494974976', NULL, 'f', 1, NULL, NULL, NULL, 1, '1', '2023-12-27 00:59:12', NULL, NULL);

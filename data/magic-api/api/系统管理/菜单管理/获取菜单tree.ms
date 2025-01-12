@@ -119,4 +119,4 @@
 }
 ================================
 var toTree = (list,pid) => select t.*,toTree(list,t.id) children from list t where t.pid = pid
-return toTree(db.select("select id, id as 'key',name, name as title,pid,is_show,url,sort,permission,`desc`,menu_type,icon,keep_alive,component_name,open_mode from sys_menu where is_del = 0 order by sort"),'0')
+return toTree(db.select("select id, id as 'key',name, name as title,pid,is_show,url,sort,permission,remark,menu_type,icon,keep_alive,component_name,open_mode from sys_menu where is_del = 0 order by sort"),'0')

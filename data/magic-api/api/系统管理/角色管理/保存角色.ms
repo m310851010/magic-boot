@@ -5,7 +5,7 @@
   "groupId" : "89130d496f6f467c88b22ae4a7f688eb",
   "name" : "保存角色",
   "createTime" : null,
-  "updateTime" : 1703766747718,
+  "updateTime" : 1736519642219,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -52,8 +52,8 @@ assert body?.name: 0, '角色名称不能为空'
 var id = body.id
 var role = {
     id,
-    '`desc`': body.desc,
+    remark: body.remark,
     name: body.name
 }
 
-return db.table("sys_role").primary("id").saveOrUpdate(role);
+return db.table("sys_role").primary("id").withBlank().saveOrUpdate(role);

@@ -5,7 +5,7 @@
   "groupId" : "4f0230049d7e4f39b1e0897cc0f46f9a",
   "name" : "保存",
   "createTime" : null,
-  "updateTime" : 1704372649274,
+  "updateTime" : 1736600295686,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -78,7 +78,7 @@ var user = {
     password
 }
 
-var id = db.table("sys_user").primary("id").saveOrUpdate(user)
+var id = db.table("sys_user").primary("id").withBlank().saveOrUpdate(user)
 if (body.roles){
     var list = body.roles.map(role_id => ({ user_id : id, role_id }))
     db.table('sys_user_role').batchInsert(list)

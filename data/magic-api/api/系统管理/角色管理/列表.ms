@@ -5,7 +5,7 @@
   "groupId" : "89130d496f6f467c88b22ae4a7f688eb",
   "name" : "列表",
   "createTime" : null,
-  "updateTime" : 1703578173539,
+  "updateTime" : 1736518748366,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -179,7 +179,7 @@
 }
 ================================
 return db.select("""
-    select id, name, permission, `desc`, create_date from sys_role where is_del = 0
+    select id, name, permission, remark, create_date from sys_role where is_del = 0
     ?{body?.name, and name like concat('%',#{body.name},'%')}
     order by create_date desc
 """)

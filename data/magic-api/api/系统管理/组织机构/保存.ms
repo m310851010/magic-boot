@@ -5,7 +5,7 @@
   "groupId" : "8295fc13678d4144bf7363c465247a50",
   "name" : "保存",
   "createTime" : null,
-  "updateTime" : 1703996753157,
+  "updateTime" : 1736600321568,
   "lock" : "0",
   "createBy" : null,
   "updateBy" : null,
@@ -77,4 +77,4 @@ if (maxCode) {
 
 office.code = code
 
-return db.table("sys_office").primary("id").saveOrUpdate(office);
+return db.table("sys_office").primary("id").withBlank().saveOrUpdate(office);

@@ -5,7 +5,7 @@
   "groupId" : "c7ce65f5b3cf4aaa913f6fec7d35d176",
   "name" : "字典值列表",
   "createTime" : null,
-  "updateTime" : 1704175948875,
+  "updateTime" : 1736518595375,
   "lock" : null,
   "createBy" : null,
   "updateBy" : null,
@@ -23,7 +23,7 @@
 }
 ================================
 return db.select("""
-    select a.label, a.value, b.data_type, a.ext_json 
+    select a.label, a.value, b.data_type, a.remark, a.ext_json 
     from sys_dict a, sys_dict b 
     where a.pid = b.id
         and b.value = #{path.value}
